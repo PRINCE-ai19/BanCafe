@@ -1,4 +1,3 @@
-using BanCaPhe.Helpers;
 using BanCaPhe.ViewModel;
 using System.Windows;
 using System.Windows.Input;
@@ -50,7 +49,7 @@ namespace BanCaPhe
 
             if (txtRegisterPassword.Password != txtRegisterConfirm.Password)
             {
-                DialogService.ShowError("Mật khẩu xác nhận không khớp!");
+                MessageBox.Show("Mật khẩu xác nhận không khớp!", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
