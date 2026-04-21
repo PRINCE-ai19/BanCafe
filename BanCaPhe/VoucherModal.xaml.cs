@@ -7,21 +7,19 @@ namespace BanCaPhe
     {
         private VoucherModalViewModel _viewModel;
 
-        public string AppliedVoucherCode { get; private set; }
-        public decimal VoucherDiscount { get; private set; }
+        public KhachHang SelectedCustomer { get; private set; }
 
         public VoucherModal()
         {
             InitializeComponent();
             _viewModel = new VoucherModalViewModel();
-            _viewModel.VoucherApplied += OnVoucherApplied;
+            _viewModel.CustomerSelected += OnCustomerSelected;
             DataContext = _viewModel;
         }
 
-        private void OnVoucherApplied(object sender, VoucherAppliedEventArgs e)
+        private void OnCustomerSelected(object sender, CustomerSelectedEventArgs e)
         {
-            AppliedVoucherCode = e.VoucherCode;
-            VoucherDiscount = e.DiscountAmount;
+            SelectedCustomer = e.Customer;
             this.DialogResult = true;
             this.Close();
         }

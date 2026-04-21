@@ -84,28 +84,6 @@ namespace BanCaPhe.ViewModel
         public bool HasKhachHang => KhachHangHienTai != null;
         public bool HasOrderItems => DonHang != null && DonHang.Count > 0;
 
-        // Voucher properties
-        private bool _hasAppliedVoucher;
-        public bool HasAppliedVoucher
-        {
-            get => _hasAppliedVoucher;
-            set { _hasAppliedVoucher = value; OnPropertyChanged(); }
-        }
-
-        private string _appliedVoucherCode;
-        public string AppliedVoucherCode
-        {
-            get => _appliedVoucherCode;
-            set { _appliedVoucherCode = value; OnPropertyChanged(); }
-        }
-
-        private decimal _voucherDiscount;
-        public decimal VoucherDiscount
-        {
-            get => _voucherDiscount;
-            set { _voucherDiscount = value; OnPropertyChanged(); }
-        }
-
         private string _soDienThoaiSearch;
         public string SoDienThoaiSearch
         {
@@ -287,18 +265,16 @@ namespace BanCaPhe.ViewModel
 
             var view = new VoucherModal();
             view.Owner = Application.Current.MainWindow;
-            if (view.ShowDialog() == true)
+            if (view.ShowDialog() == true && view.SelectedCustomer != null)
             {
-                // Xử lý khi voucher được áp dụng thành công
-                HasAppliedVoucher = true;
-                AppliedVoucherCode = view.AppliedVoucherCode;
-                VoucherDiscount = view.VoucherDiscount;
+                // Áp dụng khách hàng vào CartService
+                CartService.Instance.CurrentKhachHang = view.SelectedCustomer;
                 
-                // Cập nhật tổng tiền
+                // Cập nhật UI
+                OnPropertyChanged(nameof(KhachHangHienTai));
+                OnPropertyChanged(nameof(HasKhachHang));
+                OnPropertyChanged(nameof(PhanTramGiamGia));
                 NotifyPriceChanged();
-                OnPropertyChanged(nameof(HasAppliedVoucher));
-                OnPropertyChanged(nameof(AppliedVoucherCode));
-                OnPropertyChanged(nameof(VoucherDiscount));
             }
         }
     }

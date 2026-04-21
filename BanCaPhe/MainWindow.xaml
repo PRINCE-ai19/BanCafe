@@ -324,15 +324,7 @@
                                            Foreground="#C62828" FontWeight="Bold" HorizontalAlignment="Right" FontSize="10"/>
                             </Grid>
 
-                            <Separator Background="#E8F0E8" Margin="0,4"/>
-
-                            <Grid Margin="0,2,0,2" Visibility="{Binding HasAppliedVoucher, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                <TextBlock Text="{Binding AppliedVoucherCode, StringFormat=Voucher ({0}):}" Foreground="#C62828" FontSize="10"/>
-                                <TextBlock Text="{Binding VoucherDiscount, StringFormat=-{0:N0} đ}" 
-                                           Foreground="#C62828" FontWeight="Bold" HorizontalAlignment="Right" FontSize="10"/>
-                            </Grid>
-
-                            <Separator Background="#E8F0E8" Margin="0,4"/>
+                            <Separator Background="#E8F0E8" Margin="0,4" Visibility="{Binding HasKhachHang, Converter={StaticResource BooleanToVisibilityConverter}}"/>
 
                             <Grid Margin="0,2,0,8">
                                 <TextBlock Text="TỔNG:" FontWeight="Bold" Foreground="#1F4D3D" FontSize="11"/>
@@ -340,7 +332,7 @@
                                            Foreground="#2D7A5C" FontWeight="Bold" HorizontalAlignment="Right" FontSize="13"/>
                             </Grid>
 
-                            <!-- Voucher Icon -->
+                            <!-- Customer Selection Button -->
                             <Border Height="32" Background="#FFFFFF" CornerRadius="8" Cursor="Hand" 
                                     Margin="0,0,0,4" BorderBrush="#D0E8DC" BorderThickness="1"
                                     IsEnabled="{Binding HasOrderItems}">
@@ -357,8 +349,8 @@
                                     <MouseBinding MouseAction="LeftClick" Command="{Binding MoVoucherModalCommand}"/>
                                 </Border.InputBindings>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <TextBlock Text="🎁" FontSize="16" Margin="0,0,6,0"/>
-                                    <TextBlock Text="Áp dụng mã giảm giá" FontSize="10" FontWeight="Bold" Foreground="#2D5F3F" VerticalAlignment="Center"/>
+                                    <TextBlock Text="👤" FontSize="16" Margin="0,0,6,0"/>
+                                    <TextBlock Text="Chọn khách hàng" FontSize="10" FontWeight="Bold" Foreground="#2D5F3F" VerticalAlignment="Center"/>
                                 </StackPanel>
                             </Border>
 

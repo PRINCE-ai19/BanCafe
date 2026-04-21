@@ -30,53 +30,61 @@
 
         <!-- BÊN TRÁI - HÌNH COFFEE & WELCOME -->
         <Border Grid.Column="0" Background="#A8D5BA" Padding="40">
-            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                <!-- LOGO & BRAND -->
-                <StackPanel Margin="0,0,0,40">
-                    <TextBlock Text="🍵" 
-                               FontSize="64" 
-                               TextAlignment="Center"
-                               Margin="0,0,0,16"/>
+            <Grid VerticalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                
+                <StackPanel Grid.Row="1" HorizontalAlignment="Center">
+                    <!-- LOGO & BRAND -->
+                    <StackPanel Margin="0,0,0,40">
+                        <TextBlock Text="🍵" 
+                                   FontSize="64" 
+                                   TextAlignment="Center"
+                                   Margin="0,0,0,16"/>
+                        
+                        <TextBlock Text="MODTRA" 
+                                   FontSize="36" 
+                                   FontWeight="Bold" 
+                                   Foreground="#FFFFFF" 
+                                   TextAlignment="Center"
+                                   Margin="0,0,0,8"/>
+                        
+                        <TextBlock Text="Matcha &amp; Cà phê" 
+                                   FontSize="16" 
+                                   Foreground="#FFFFFF" 
+                                   TextAlignment="Center"
+                                   Opacity="0.95"
+                                   Margin="0,0,0,4"/>
+                        
+                        <TextBlock Text="Chất lượng cao" 
+                                   FontSize="14" 
+                                   Foreground="#FFFFFF" 
+                                   TextAlignment="Center"
+                                   Opacity="0.85"/>
+                    </StackPanel>
                     
-                    <TextBlock Text="MODTRA" 
-                               FontSize="36" 
-                               FontWeight="Bold" 
+                    <!-- HÌNH COFFEE -->
+                    <Border Width="260" Height="260" Background="#FFFFFF" CornerRadius="20" Padding="12" Margin="0,0,0,30" BorderBrush="#FFFFFF" BorderThickness="3">
+                        <Border.Effect>
+                            <DropShadowEffect Color="#2D5F3F" BlurRadius="20" ShadowDepth="0" Opacity="0.2"/>
+                        </Border.Effect>
+                        <Image Source="HinhAnh/cafe_sua_da.png" 
+                               Stretch="UniformToFill"
+                               RenderOptions.BitmapScalingMode="HighQuality"/>
+                    </Border>
+                    
+                    <!-- TAGLINE -->
+                    <TextBlock Text="Quản lý bán hàng chuyên nghiệp" 
+                               FontSize="13" 
                                Foreground="#FFFFFF" 
                                TextAlignment="Center"
-                               Margin="0,0,0,8"/>
-                    
-                    <TextBlock Text="Matcha &amp; Cà phê" 
-                               FontSize="16" 
-                               Foreground="#FFFFFF" 
-                               TextAlignment="Center"
-                               Opacity="0.95"
-                               Margin="0,0,0,4"/>
-                    
-                    <TextBlock Text="Chất lượng cao" 
-                               FontSize="14" 
-                               Foreground="#FFFFFF" 
-                               TextAlignment="Center"
-                               Opacity="0.85"/>
+                               Opacity="0.9"
+                               FontWeight="SemiBold"/>
                 </StackPanel>
-                
-                <!-- HÌNH COFFEE -->
-                <Border Width="260" Height="260" Background="#FFFFFF" CornerRadius="20" Padding="12" Margin="0,0,0,30" BorderBrush="#FFFFFF" BorderThickness="3">
-                    <Border.Effect>
-                        <DropShadowEffect Color="#2D5F3F" BlurRadius="20" ShadowDepth="0" Opacity="0.2"/>
-                    </Border.Effect>
-                    <Image Source="HinhAnh/cafe_sua_da.png" 
-                           Stretch="UniformToFill"
-                           RenderOptions.BitmapScalingMode="HighQuality"/>
-                </Border>
-                
-                <!-- TAGLINE -->
-                <TextBlock Text="Quản lý bán hàng chuyên nghiệp" 
-                           FontSize="13" 
-                           Foreground="#FFFFFF" 
-                           TextAlignment="Center"
-                           Opacity="0.9"
-                           FontWeight="SemiBold"/>
-            </StackPanel>
+            </Grid>
         </Border>
 
         <!-- BÊN PHẢI - FORM ĐĂNG NHẬP -->
