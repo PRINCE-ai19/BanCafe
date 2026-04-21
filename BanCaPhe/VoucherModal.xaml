@@ -33,37 +33,42 @@
         <Border Grid.Row="1" Background="#FFFFFF" Padding="15" Margin="15,15,15,10" CornerRadius="8" BorderBrush="#D0E8DC" BorderThickness="1">
             <StackPanel>
                 <TextBlock Text="Tìm kiếm khách hàng" FontSize="12" FontWeight="Bold" Foreground="#2D5F3F" Margin="0,0,0,8"/>
-                <TextBox x:Name="SearchBox" 
-                         Text="{Binding CustomerSearchText, UpdateSourceTrigger=PropertyChanged}" 
-                         Height="32" 
-                         VerticalContentAlignment="Center" 
-                         Padding="10,0" 
-                         FontSize="11"
-                         Background="#F1F8F4" 
-                         BorderThickness="1" 
-                         BorderBrush="#D0E8DC"
-                         Tag="Nhập SĐT hoặc họ tên...">
-                    <TextBox.Style>
-                        <Style TargetType="TextBox">
-                            <Style.Triggers>
-                                <Trigger Property="Text" Value="">
-                                    <Setter Property="Background">
-                                        <Setter.Value>
-                                            <VisualBrush Stretch="None" AlignmentX="Left">
-                                                <VisualBrush.Visual>
-                                                    <TextBlock Text="{Binding Tag, RelativeSource={RelativeSource AncestorType=TextBox}}" 
-                                                               Foreground="#A0A0A0" 
-                                                               FontSize="11" 
-                                                               Margin="10,0,0,0"/>
-                                                </VisualBrush.Visual>
-                                            </VisualBrush>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </TextBox.Style>
-                </TextBox>
+                
+                <!-- Search Box with Placeholder -->
+                <Grid>
+                    <TextBox x:Name="SearchBox" 
+                             Text="{Binding CustomerSearchText, UpdateSourceTrigger=PropertyChanged}" 
+                             Height="32" 
+                             VerticalContentAlignment="Center" 
+                             Padding="10,0" 
+                             FontSize="11"
+                             Background="#F1F8F4" 
+                             BorderThickness="1" 
+                             BorderBrush="#D0E8DC">
+                    </TextBox>
+                    
+                    <!-- Placeholder Text -->
+                    <TextBlock Text="Nhập SĐT hoặc họ tên..." 
+                               FontSize="11" 
+                               Foreground="#A0A0A0" 
+                               Margin="10,0,0,0"
+                               VerticalAlignment="Center"
+                               IsHitTestVisible="False">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding CustomerSearchText}" Value="">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding CustomerSearchText}" Value="{x:Null}">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </Grid>
 
                 <!-- Customer Search Results -->
                 <Border Visibility="{Binding HasCustomerResults, Converter={StaticResource BooleanToVisibilityConverter}}" 

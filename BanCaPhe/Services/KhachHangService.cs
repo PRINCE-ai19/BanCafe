@@ -8,6 +8,11 @@ namespace BanCaPhe.Services
 {
     public class KhachHangService
     {
+        public List<KhachHang> GetAll()
+        {
+            return StoreHelper.QueryList<KhachHang>("sp_GetAllKhachHang", null);
+        }
+
         public KhachHang Register(string hoTen, string soDienThoai)
         {
             var parameters = new DynamicParameters();

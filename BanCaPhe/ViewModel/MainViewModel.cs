@@ -290,9 +290,15 @@ namespace BanCaPhe.ViewModel
             if (view.ShowDialog() == true)
             {
                 // Xử lý khi voucher được áp dụng thành công
-                // Bạn có thể lấy thông tin voucher từ view hoặc service
                 HasAppliedVoucher = true;
-                // AppliedVoucherCode và VoucherDiscount sẽ được cập nhật từ VoucherModal
+                AppliedVoucherCode = view.AppliedVoucherCode;
+                VoucherDiscount = view.VoucherDiscount;
+                
+                // Cập nhật tổng tiền
+                NotifyPriceChanged();
+                OnPropertyChanged(nameof(HasAppliedVoucher));
+                OnPropertyChanged(nameof(AppliedVoucherCode));
+                OnPropertyChanged(nameof(VoucherDiscount));
             }
         }
     }
