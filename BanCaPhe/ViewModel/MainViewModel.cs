@@ -82,6 +82,29 @@ namespace BanCaPhe.ViewModel
         public int PhanTramGiamGia => CartService.Instance.PhanTramGiamGia;
         public KhachHang KhachHangHienTai => CartService.Instance.CurrentKhachHang;
         public bool HasKhachHang => KhachHangHienTai != null;
+        public bool HasOrderItems => DonHang != null && DonHang.Count > 0;
+
+        // Voucher properties
+        private bool _hasAppliedVoucher;
+        public bool HasAppliedVoucher
+        {
+            get => _hasAppliedVoucher;
+            set { _hasAppliedVoucher = value; OnPropertyChanged(); }
+        }
+
+        private string _appliedVoucherCode;
+        public string AppliedVoucherCode
+        {
+            get => _appliedVoucherCode;
+            set { _appliedVoucherCode = value; OnPropertyChanged(); }
+        }
+
+        private decimal _voucherDiscount;
+        public decimal VoucherDiscount
+        {
+            get => _voucherDiscount;
+            set { _voucherDiscount = value; OnPropertyChanged(); }
+        }
 
         private string _soDienThoaiSearch;
         public string SoDienThoaiSearch
@@ -107,6 +130,7 @@ namespace BanCaPhe.ViewModel
         public ICommand HienThiDangKyThanhVienCommand { get; }
         public ICommand TimKhachHangCommand { get; }
         public ICommand HuyKhachHangCommand { get; }
+        public ICommand MoVoucherModalCommand { get; }
 
         public MainViewModel()
         {
@@ -143,6 +167,7 @@ namespace BanCaPhe.ViewModel
             HienThiDangKyThanhVienCommand = new RelayCommand(_ => HienThiDangKyThanhVien());
             TimKhachHangCommand = new RelayCommand(_ => TimKhachHang());
             HuyKhachHangCommand = new RelayCommand(_ => HuyKhachHang());
+            MoVoucherModalCommand = new RelayCommand(_ => MoVoucherModal());
         }
 
         private void NotifyPriceChanged()
@@ -150,6 +175,7 @@ namespace BanCaPhe.ViewModel
             OnPropertyChanged(nameof(TongTienGoc));
             OnPropertyChanged(nameof(TongPhaiThanhToan));
             OnPropertyChanged(nameof(GiamGia));
+            OnPropertyChanged(nameof(HasOrderItems));
         }
 
         private void TimKhachHang()
@@ -249,6 +275,25 @@ namespace BanCaPhe.ViewModel
             var view = new W_DangKyThanhVien();
             view.Owner = Application.Current.MainWindow;
             view.ShowDialog();
+        }
+
+        private void MoVoucherModal()
+        {
+            if (DonHang.Count == 0)
+            {
+                DialogService.ShowError("Giỏ hàng đang trống!");
+                return;
+            }
+
+            var view = new VoucherModal();
+            view.Owner = Application.Current.MainWindow;
+            if (view.ShowDialog() == true)
+            {
+                // Xử lý khi voucher được áp dụng thành công
+                // Bạn có thể lấy thông tin voucher từ view hoặc service
+                HasAppliedVoucher = true;
+                // AppliedVoucherCode và VoucherDiscount sẽ được cập nhật từ VoucherModal
+            }
         }
     }
 }
