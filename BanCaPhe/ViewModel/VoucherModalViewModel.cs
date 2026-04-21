@@ -126,7 +126,7 @@ namespace BanCaPhe.ViewModel
 
             SelectCustomerCommand = new RelayCommand<KhachHang>(SelectCustomer);
             SelectVoucherCommand = new RelayCommand<VoucherItem>(SelectVoucher);
-            ApplyVoucherCommand = new RelayCommand(_ => ApplyVoucher(), _ => HasSelectedVoucher);
+            ApplyVoucherCommand = new RelayCommand(_ => ApplyVoucher());
         }
 
         private void SearchCustomers()
