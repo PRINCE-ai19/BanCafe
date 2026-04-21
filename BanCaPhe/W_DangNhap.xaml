@@ -8,8 +8,8 @@
     xmlns:conv="clr-namespace:BanCaPhe.Converters"
     mc:Ignorable="d"
     Title="Modtra - Đăng nhập"
-    Height="550"
-    Width="1100"
+    Height="700"
+    Width="1000"
     WindowStartupLocation="CenterScreen"
     ResizeMode="NoResize"
     Background="#FAFAF8">

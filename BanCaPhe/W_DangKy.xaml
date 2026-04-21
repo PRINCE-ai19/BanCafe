@@ -7,8 +7,8 @@
         xmlns:vm="clr-namespace:BanCaPhe.ViewModel"
         mc:Ignorable="d"
         Title="Modtra - Đăng ký"
-        Height="520"
-        Width="450"
+        Height="700"
+        Width="1000"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
         Background="#FAFAF8">
