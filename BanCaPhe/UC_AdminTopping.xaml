@@ -83,8 +83,32 @@
                     <Setter Property="Padding" Value="12,8"/>
                     <Setter Property="BorderBrush" Value="#D0E8DC"/>
                     <Setter Property="BorderThickness" Value="0,0,1,1"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
                 </Style>
             </DataGrid.ColumnHeaderStyle>
+
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Setter Property="Background" Value="#FFFFFF"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#F1F8F4"/>
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="#E8F0E8"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.RowStyle>
+
+            <DataGrid.CellStyle>
+                <Style TargetType="DataGridCell">
+                    <Setter Property="BorderThickness" Value="0"/>
+                    <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                    <Setter Property="Padding" Value="8,0"/>
+                </Style>
+            </DataGrid.CellStyle>
 
             <DataGrid.Columns>
 
@@ -128,7 +152,7 @@
                                         Width="90"/>
 
                 <!-- THAO TÁC -->
-                <DataGridTemplateColumn Header="Thao tác" Width="220">
+                <DataGridTemplateColumn Header="Thao tác" Width="200">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal"
@@ -144,52 +168,52 @@
                                         Background="#2D7A5C"
                                         Foreground="#FFFFFF"
                                         FontWeight="Bold"
-                                        FontSize="11"
+                                        FontSize="10"
                                         BorderThickness="0"
                                         Cursor="Hand"
                                         Command="{Binding DataContext.ThemCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}">
                                     <Button.Resources>
                                         <Style TargetType="Border">
-                                            <Setter Property="CornerRadius" Value="16"/>
+                                            <Setter Property="CornerRadius" Value="6"/>
                                         </Style>
                                     </Button.Resources>
                                 </Button>
 
                                 <!-- NÚT SỬA -->
                                 <Button Content="✎ Sửa"
-                                        Width="80"
-                                        Height="36"
+                                        Width="60"
+                                        Height="32"
                                         Margin="0,0,4,0"
                                         Background="#A8D5BA"
                                         Foreground="#1F4D3D"
                                         FontWeight="Bold"
-                                        FontSize="11"
+                                        FontSize="10"
                                         BorderThickness="0"
                                         Cursor="Hand"
                                         Command="{Binding DataContext.SuaCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
                                         CommandParameter="{Binding}">
                                     <Button.Resources>
                                         <Style TargetType="Border">
-                                            <Setter Property="CornerRadius" Value="16"/>
+                                            <Setter Property="CornerRadius" Value="6"/>
                                         </Style>
                                     </Button.Resources>
                                 </Button>
 
                                 <!-- NÚT XÓA -->
                                 <Button Content="✕ Xóa"
-                                        Width="80"
-                                        Height="36"
+                                        Width="60"
+                                        Height="32"
                                         Background="#FFCDD2"
                                         Foreground="#C62828"
                                         FontWeight="Bold"
-                                        FontSize="11"
+                                        FontSize="10"
                                         BorderThickness="0"
                                         Cursor="Hand"
                                         Command="{Binding DataContext.XoaCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
                                         CommandParameter="{Binding}">
                                     <Button.Resources>
                                         <Style TargetType="Border">
-                                            <Setter Property="CornerRadius" Value="16"/>
+                                            <Setter Property="CornerRadius" Value="6"/>
                                         </Style>
                                     </Button.Resources>
                                 </Button>
