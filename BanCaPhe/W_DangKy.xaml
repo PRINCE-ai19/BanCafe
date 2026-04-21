@@ -7,8 +7,8 @@
         xmlns:vm="clr-namespace:BanCaPhe.ViewModel"
         mc:Ignorable="d"
         Title="Modtra - Đăng ký"
-        Height="580"
-        Width="800"
+        Height="520"
+        Width="450"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
         Background="#FAFAF8">
@@ -17,7 +17,7 @@
         <vm:DangKyViewModel/>
     </Window.DataContext>
 
-    <Border Background="#FFFFFF" CornerRadius="16" Padding="0" Margin="20">
+    <Border Background="#FFFFFF" CornerRadius="12" Padding="0" Margin="15">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -25,7 +25,7 @@
             </Grid.RowDefinitions>
 
             <!-- HEADER -->
-            <Border Grid.Row="0" Background="#2D5F3F" Padding="20,16,20,16" CornerRadius="16,16,0,0">
+            <Border Grid.Row="0" Background="#2D5F3F" Padding="16,12,16,12" CornerRadius="12,12,0,0">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
@@ -37,12 +37,12 @@
                     <Button Grid.Column="0"
                             Content="← Quay lại"
                             Width="Auto"
-                            Height="32"
-                            Padding="12,6"
+                            Height="28"
+                            Padding="10,5"
                             Background="Transparent"
                             Foreground="#FFFFFF"
                             FontWeight="Bold"
-                            FontSize="11"
+                            FontSize="10"
                             BorderThickness="0"
                             Cursor="Hand"
                             Command="{Binding QuayLaiCommand}"/>
@@ -50,32 +50,32 @@
                     <!-- TITLE -->
                     <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
                         <TextBlock Text="Tạo tài khoản mới" 
-                                   FontSize="16" 
+                                   FontSize="14" 
                                    FontWeight="Bold" 
                                    Foreground="#FFFFFF"
                                    TextAlignment="Center"/>
                     </StackPanel>
 
                     <!-- SPACER -->
-                    <TextBlock Grid.Column="2" Width="80"/>
+                    <TextBlock Grid.Column="2" Width="70"/>
                 </Grid>
             </Border>
 
             <!-- FORM -->
-            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="28,20,28,20">
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="24,16,24,16">
                 <StackPanel>
                     <!-- HỌ TÊN -->
                     <TextBlock Text="Họ tên" 
-                               FontSize="11" 
+                               FontSize="10" 
                                FontWeight="SemiBold"
                                Foreground="#2D5F3F"
-                               Margin="0,0,0,6"/>
+                               Margin="0,0,0,5"/>
                     <TextBox x:Name="txtHoTen"
                              Text="{Binding HoTen, UpdateSourceTrigger=PropertyChanged}"
-                             Height="36"
-                             Margin="0,0,0,14"
-                             Padding="12,9"
-                             FontSize="12"
+                             Height="34"
+                             Margin="0,0,0,12"
+                             Padding="10,8"
+                             FontSize="11"
                              Background="#F1F8F4"
                              Foreground="#2D5F3F"
                              BorderBrush="#E0F0E8"
@@ -83,16 +83,16 @@
 
                     <!-- EMAIL -->
                     <TextBlock Text="Email" 
-                               FontSize="11" 
+                               FontSize="10" 
                                FontWeight="SemiBold"
                                Foreground="#2D5F3F"
-                               Margin="0,0,0,6"/>
+                               Margin="0,0,0,5"/>
                     <TextBox x:Name="txtEmail"
                              Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"
-                             Height="36"
-                             Margin="0,0,0,14"
-                             Padding="12,9"
-                             FontSize="12"
+                             Height="34"
+                             Margin="0,0,0,12"
+                             Padding="10,8"
+                             FontSize="11"
                              Background="#F1F8F4"
                              Foreground="#2D5F3F"
                              BorderBrush="#E0F0E8"
@@ -100,16 +100,16 @@
 
                     <!-- SỐ ĐIỆN THOẠI -->
                     <TextBlock Text="Số điện thoại" 
-                               FontSize="11" 
+                               FontSize="10" 
                                FontWeight="SemiBold"
                                Foreground="#2D5F3F"
-                               Margin="0,0,0,6"/>
+                               Margin="0,0,0,5"/>
                     <TextBox x:Name="txtSoDienThoai"
                              Text="{Binding SoDienThoai, UpdateSourceTrigger=PropertyChanged}"
-                             Height="36"
-                             Margin="0,0,0,14"
-                             Padding="12,9"
-                             FontSize="12"
+                             Height="34"
+                             Margin="0,0,0,12"
+                             Padding="10,8"
+                             FontSize="11"
                              Background="#F1F8F4"
                              Foreground="#2D5F3F"
                              BorderBrush="#E0F0E8"
@@ -117,56 +117,79 @@
 
                     <!-- MẬT KHẨU -->
                     <TextBlock Text="Mật khẩu" 
-                               FontSize="11" 
+                               FontSize="10" 
                                FontWeight="SemiBold"
                                Foreground="#2D5F3F"
-                               Margin="0,0,0,6"/>
+                               Margin="0,0,0,5"/>
                     <PasswordBox x:Name="txtMatKhau"
-                                 Height="36"
-                                 Margin="0,0,0,14"
-                                 Padding="12,9"
-                                 FontSize="12"
+                                 Height="34"
+                                 Margin="0,0,0,12"
+                                 Padding="10,8"
+                                 FontSize="11"
                                  Background="#F1F8F4"
                                  BorderBrush="#E0F0E8"
                                  BorderThickness="1"/>
 
                     <!-- XÁC NHẬN MẬT KHẨU -->
                     <TextBlock Text="Xác nhận mật khẩu" 
-                               FontSize="11" 
+                               FontSize="10" 
                                FontWeight="SemiBold"
                                Foreground="#2D5F3F"
-                               Margin="0,0,0,6"/>
+                               Margin="0,0,0,5"/>
                     <PasswordBox x:Name="txtXacNhan"
-                                 Height="36"
-                                 Margin="0,0,0,16"
-                                 Padding="12,9"
-                                 FontSize="12"
+                                 Height="34"
+                                 Margin="0,0,0,14"
+                                 Padding="10,8"
+                                 FontSize="11"
                                  Background="#F1F8F4"
                                  BorderBrush="#E0F0E8"
                                  BorderThickness="1"/>
 
                     <!-- NÚT ĐĂNG KÝ -->
                     <Button Content="Đăng ký"
-                            Height="40"
+                            Height="38"
                             Background="#2D7A5C"
                             Foreground="#FFFFFF"
                             FontWeight="Bold"
                             FontSize="12"
                             Command="{Binding DangKyCommand}"
                             CommandParameter="{Binding ElementName=txtMatKhau}"
-                            Margin="0,0,0,12"
-                            BorderThickness="0"/>
+                            Margin="0,0,0,10"
+                            BorderThickness="0"
+                            Cursor="Hand">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Background="{TemplateBinding Background}" 
+                                                    CornerRadius="6" 
+                                                    BorderThickness="0">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#3A9B73"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
 
                     <!-- LIÊN KẾT ĐĂNG NHẬP -->
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                         <TextBlock Text="Đã có tài khoản? " 
                                    Foreground="#6B8B7E"
-                                   FontSize="11"/>
+                                   FontSize="10"/>
                         <TextBlock Text="Đăng nhập"
                                    Foreground="#2D7A5C"
-                                   FontSize="11"
+                                   FontSize="10"
                                    FontWeight="Bold"
-                                   Cursor="Hand">
+                                   Cursor="Hand"
+                                   TextDecorations="Underline">
                             <TextBlock.InputBindings>
                                 <MouseBinding MouseAction="LeftClick" Command="{Binding QuayLaiCommand}"/>
                             </TextBlock.InputBindings>

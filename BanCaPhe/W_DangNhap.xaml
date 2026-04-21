@@ -177,7 +177,7 @@
                         </Button>
 
                         <!-- LIÊN KẾT ĐĂNG KÝ -->
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,16">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,0">
                             <TextBlock Text="Chưa có tài khoản? " 
                                        Foreground="#6B8B7E"
                                        FontSize="12"/>
@@ -192,16 +192,6 @@
                                 </TextBlock.InputBindings>
                             </TextBlock>
                         </StackPanel>
-
-                        <!-- QUÊN MẬT KHẨU -->
-                        <TextBlock Text="Quên mật khẩu?" 
-                                   Foreground="#2D7A5C"
-                                   FontSize="12"
-                                   FontWeight="SemiBold"
-                                   HorizontalAlignment="Center"
-                                   Cursor="Hand"
-                                   TextDecorations="Underline"
-                                   MouseDown="TextQuyenmatkhau_Click"/>
                     </StackPanel>
                 </Border>
             </ScrollViewer>
