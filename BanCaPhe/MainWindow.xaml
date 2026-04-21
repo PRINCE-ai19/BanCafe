@@ -213,7 +213,6 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/> <!-- Header -->
-                        <RowDefinition Height="Auto"/> <!-- Khách hàng -->
                         <RowDefinition Height="*"/>    <!-- Danh sách món -->
                         <RowDefinition Height="Auto"/> <!-- Tổng kết -->
                     </Grid.RowDefinitions>
@@ -223,41 +222,8 @@
                         <TextBlock Text="Đơn hàng" FontSize="13" FontWeight="Bold" Foreground="#FFFFFF"/>
                     </Border>
 
-                    <!-- Customer Search (Top) -->
-                    <Border Grid.Row="1" Background="#FFFFFF" Padding="8,6" CornerRadius="8" Margin="10,10,10,6" BorderBrush="#D0E8DC" BorderThickness="1">
-                        <StackPanel>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
-                                <TextBox Text="{Binding SoDienThoaiSearch, UpdateSourceTrigger=PropertyChanged}" 
-                                         Height="26" VerticalContentAlignment="Center" Padding="5,0" FontSize="11"
-                                         Background="#F1F8F4" BorderThickness="1" BorderBrush="#D0E8DC" Tag="SĐT khách...">
-                                    <TextBox.InputBindings>
-                                        <KeyBinding Key="Enter" Command="{Binding TimKhachHangCommand}"/>
-                                    </TextBox.InputBindings>
-                                </TextBox>
-                                <Button Grid.Column="1" Content="🔍" Width="26" Height="26" 
-                                        Command="{Binding TimKhachHangCommand}" 
-                                        Background="#2D7A5C" Foreground="#FFFFFF" BorderThickness="0" Margin="4,0,0,0"/>
-                            </Grid>
-
-                            <!-- Compact Info -->
-                            <Grid Visibility="{Binding HasKhachHang, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="0,4,0,0">
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="{Binding KhachHangHienTai.HoTen}" FontWeight="Bold" Foreground="#2D5F3F" FontSize="10" VerticalAlignment="Center"/>
-                                    <TextBlock Text="{Binding PhanTramGiamGia, StringFormat= ({0}%)}" FontSize="9" Foreground="#4A7C6B" VerticalAlignment="Center"/>
-                                </StackPanel>
-                                <Button Content="✕" HorizontalAlignment="Right" Width="16" Height="16" 
-                                        Style="{StaticResource ErrorButtonStyle}" Padding="0" FontSize="7"
-                                        Command="{Binding HuyKhachHangCommand}"/>
-                            </Grid>
-                        </StackPanel>
-                    </Border>
-
                     <!-- Order Items (Middle - Flexible) -->
-                    <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" Margin="10,0,10,6">
+                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="10,10,10,6">
                         <ListView ItemsSource="{Binding DonHang}" 
                                   SelectedItem="{Binding SelectedItem}" 
                                   BorderThickness="0" 
@@ -344,7 +310,7 @@
                     </ScrollViewer>
 
                     <!-- Order Summary (Bottom) -->
-                    <Border Grid.Row="3" Background="#FFFFFF" Padding="10,8" CornerRadius="8" Margin="10,0,10,10" BorderBrush="#D0E8DC" BorderThickness="1">
+                    <Border Grid.Row="2" Background="#FFFFFF" Padding="10,8" CornerRadius="8" Margin="10,0,10,10" BorderBrush="#D0E8DC" BorderThickness="1">
                         <StackPanel>
                             <Grid Margin="0,0,0,2">
                                 <TextBlock Text="Tiền hàng:" Foreground="#6B8B7E" FontSize="10"/>
