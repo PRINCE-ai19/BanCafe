@@ -1,0 +1,211 @@
+<Window x:Class="BanCaPhe.W_AuthWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:BanCaPhe.ViewModel"
+        Title="Modtra - Đăng nhập"
+        Height="500"
+        Width="950"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Background="#FAFAF8">
+
+    <Window.Resources>
+        <Storyboard x:Key="SlideToLogin">
+            <DoubleAnimation Storyboard.TargetName="ContentTransform"
+                           Storyboard.TargetProperty="X"
+                           To="0"
+                           Duration="0:0:0.4">
+                <DoubleAnimation.EasingFunction>
+                    <CubicEase EasingMode="EaseInOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+        
+        <Storyboard x:Key="SlideToRegister">
+            <DoubleAnimation Storyboard.TargetName="ContentTransform"
+                           Storyboard.TargetProperty="X"
+                           To="-950"
+                           Duration="0:0:0.4">
+                <DoubleAnimation.EasingFunction>
+                    <CubicEase EasingMode="EaseInOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+    </Window.Resources>
+
+    <Grid ClipToBounds="True">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Container with sliding content -->
+        <Grid Grid.ColumnSpan="2">
+            <Grid.RenderTransform>
+                <TranslateTransform x:Name="ContentTransform" X="0"/>
+            </Grid.RenderTransform>
+            
+            <Grid Width="1900">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="950"/>
+                    <ColumnDefinition Width="950"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- LOGIN VIEW -->
+                <Grid Grid.Column="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- BÊN TRÁI - LOGO -->
+                    <Border Grid.Column="0" Background="#A8D5BA" Padding="40">
+                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <StackPanel Margin="0,0,0,40">
+                                <TextBlock Text="🍵" FontSize="64" TextAlignment="Center" Margin="0,0,0,16"/>
+                                <TextBlock Text="MODTRA" FontSize="36" FontWeight="Bold" Foreground="#FFFFFF" TextAlignment="Center" Margin="0,0,0,8"/>
+                                <TextBlock Text="Matcha &amp; Cà phê" FontSize="16" Foreground="#FFFFFF" TextAlignment="Center" Opacity="0.95" Margin="0,0,0,4"/>
+                                <TextBlock Text="Chất lượng cao" FontSize="14" Foreground="#FFFFFF" TextAlignment="Center" Opacity="0.85"/>
+                            </StackPanel>
+                            
+                            <Border Width="260" Height="260" Background="#FFFFFF" CornerRadius="20" Padding="12" Margin="0,0,0,30" BorderBrush="#FFFFFF" BorderThickness="3">
+                                <Border.Effect>
+                                    <DropShadowEffect Color="#2D5F3F" BlurRadius="20" ShadowDepth="0" Opacity="0.2"/>
+                                </Border.Effect>
+                                <Image Source="HinhAnh/cafe_sua_da.png" Stretch="UniformToFill" RenderOptions.BitmapScalingMode="HighQuality"/>
+                            </Border>
+                            
+                            <TextBlock Text="Quản lý bán hàng chuyên nghiệp" FontSize="13" Foreground="#FFFFFF" TextAlignment="Center" Opacity="0.9" FontWeight="SemiBold"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- BÊN PHẢI - FORM ĐĂNG NHẬP -->
+                    <Border Grid.Column="1" Background="#FFFFFF" Padding="0">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                            <Border Padding="60,50,60,50">
+                                <StackPanel VerticalAlignment="Center">
+                                    <TextBlock Text="Đăng nhập" FontSize="32" FontWeight="Bold" Foreground="#2D5F3F" Margin="0,0,0,10"/>
+                                    <TextBlock Text="Nhập thông tin tài khoản của bạn" FontSize="13" Foreground="#6B8B7E" Margin="0,0,0,40"/>
+
+                                    <TextBlock Text="Email" FontSize="12" FontWeight="SemiBold" Foreground="#2D5F3F" Margin="0,0,0,8"/>
+                                    <TextBox x:Name="txtLoginEmail" Height="46" Margin="0,0,0,24" Padding="14,12" FontSize="13" Background="#F1F8F4" Foreground="#2D5F3F" BorderBrush="#D0E8DC" BorderThickness="1"/>
+
+                                    <TextBlock Text="Mật khẩu" FontSize="12" FontWeight="SemiBold" Foreground="#2D5F3F" Margin="0,0,0,8"/>
+                                    <PasswordBox x:Name="txtLoginPassword" Height="46" Margin="0,0,0,32" Padding="14,12" FontSize="13" Background="#F1F8F4" BorderBrush="#D0E8DC" BorderThickness="1"/>
+
+                                    <Button Content="Đăng nhập" Height="50" FontSize="15" FontWeight="Bold" Margin="0,0,0,24" Background="#2D7A5C" Foreground="#FFFFFF" BorderThickness="0" Cursor="Hand" Click="LoginButton_Click">
+                                        <Button.Style>
+                                            <Style TargetType="Button">
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="Button">
+                                                            <Border Background="{TemplateBinding Background}" CornerRadius="8" BorderThickness="0">
+                                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                            </Border>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Background" Value="#3A9B73"/>
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+                                    </Button>
+
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <TextBlock Text="Chưa có tài khoản? " Foreground="#6B8B7E" FontSize="12"/>
+                                        <TextBlock Text="Đăng ký ngay" Foreground="#2D7A5C" FontSize="12" FontWeight="Bold" Cursor="Hand" TextDecorations="Underline" MouseLeftButtonDown="ShowRegister_Click"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
+                        </ScrollViewer>
+                    </Border>
+                </Grid>
+
+                <!-- REGISTER VIEW -->
+                <Grid Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- BÊN TRÁI - LOGO -->
+                    <Border Grid.Column="0" Background="#A8D5BA" Padding="40">
+                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <StackPanel Margin="0,0,0,40">
+                                <TextBlock Text="🍵" FontSize="64" TextAlignment="Center" Margin="0,0,0,16"/>
+                                <TextBlock Text="MODTRA" FontSize="36" FontWeight="Bold" Foreground="#FFFFFF" TextAlignment="Center" Margin="0,0,0,8"/>
+                                <TextBlock Text="Matcha &amp; Cà phê" FontSize="16" Foreground="#FFFFFF" TextAlignment="Center" Opacity="0.95" Margin="0,0,0,4"/>
+                                <TextBlock Text="Chất lượng cao" FontSize="14" Foreground="#FFFFFF" TextAlignment="Center" Opacity="0.85"/>
+                            </StackPanel>
+                            
+                            <Border Width="260" Height="260" Background="#FFFFFF" CornerRadius="20" Padding="12" Margin="0,0,0,30" BorderBrush="#FFFFFF" BorderThickness="3">
+                                <Border.Effect>
+                                    <DropShadowEffect Color="#2D5F3F" BlurRadius="20" ShadowDepth="0" Opacity="0.2"/>
+                                </Border.Effect>
+                                <Image Source="HinhAnh/cafe_sua_da.png" Stretch="UniformToFill" RenderOptions.BitmapScalingMode="HighQuality"/>
+                            </Border>
+                            
+                            <TextBlock Text="Tạo tài khoản mới ngay!" FontSize="13" Foreground="#FFFFFF" TextAlignment="Center" Opacity="0.9" FontWeight="SemiBold"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- BÊN PHẢI - FORM ĐĂNG KÝ -->
+                    <Border Grid.Column="1" Background="#FFFFFF" Padding="0">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                            <Border Padding="60,30,60,30">
+                                <StackPanel>
+                                    <TextBlock Text="Đăng ký" FontSize="32" FontWeight="Bold" Foreground="#2D5F3F" Margin="0,0,0,10"/>
+                                    <TextBlock Text="Tạo tài khoản mới" FontSize="13" Foreground="#6B8B7E" Margin="0,0,0,30"/>
+
+                                    <TextBlock Text="Họ tên" FontSize="11" FontWeight="SemiBold" Foreground="#2D5F3F" Margin="0,0,0,6"/>
+                                    <TextBox x:Name="txtRegisterName" Height="40" Margin="0,0,0,16" Padding="12,10" FontSize="12" Background="#F1F8F4" BorderBrush="#D0E8DC" BorderThickness="1"/>
+
+                                    <TextBlock Text="Email" FontSize="11" FontWeight="SemiBold" Foreground="#2D5F3F" Margin="0,0,0,6"/>
+                                    <TextBox x:Name="txtRegisterEmail" Height="40" Margin="0,0,0,16" Padding="12,10" FontSize="12" Background="#F1F8F4" BorderBrush="#D0E8DC" BorderThickness="1"/>
+
+                                    <TextBlock Text="Số điện thoại" FontSize="11" FontWeight="SemiBold" Foreground="#2D5F3F" Margin="0,0,0,6"/>
+                                    <TextBox x:Name="txtRegisterPhone" Height="40" Margin="0,0,0,16" Padding="12,10" FontSize="12" Background="#F1F8F4" BorderBrush="#D0E8DC" BorderThickness="1"/>
+
+                                    <TextBlock Text="Mật khẩu" FontSize="11" FontWeight="SemiBold" Foreground="#2D5F3F" Margin="0,0,0,6"/>
+                                    <PasswordBox x:Name="txtRegisterPassword" Height="40" Margin="0,0,0,16" Padding="12,10" FontSize="12" Background="#F1F8F4" BorderBrush="#D0E8DC" BorderThickness="1"/>
+
+                                    <TextBlock Text="Xác nhận mật khẩu" FontSize="11" FontWeight="SemiBold" Foreground="#2D5F3F" Margin="0,0,0,6"/>
+                                    <PasswordBox x:Name="txtRegisterConfirm" Height="40" Margin="0,0,0,20" Padding="12,10" FontSize="12" Background="#F1F8F4" BorderBrush="#D0E8DC" BorderThickness="1"/>
+
+                                    <Button Content="Đăng ký" Height="46" FontSize="14" FontWeight="Bold" Margin="0,0,0,16" Background="#2D7A5C" Foreground="#FFFFFF" BorderThickness="0" Cursor="Hand" Click="RegisterButton_Click">
+                                        <Button.Style>
+                                            <Style TargetType="Button">
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="Button">
+                                                            <Border Background="{TemplateBinding Background}" CornerRadius="8" BorderThickness="0">
+                                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                            </Border>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Background" Value="#3A9B73"/>
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+                                    </Button>
+
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <TextBlock Text="Đã có tài khoản? " Foreground="#6B8B7E" FontSize="11"/>
+                                        <TextBlock Text="Đăng nhập" Foreground="#2D7A5C" FontSize="11" FontWeight="Bold" Cursor="Hand" TextDecorations="Underline" MouseLeftButtonDown="ShowLogin_Click"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
+                        </ScrollViewer>
+                    </Border>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
