@@ -1,3 +1,4 @@
+using BanCaPhe.Models;
 using BanCaPhe.ViewModel;
 using System.Windows;
 
