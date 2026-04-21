@@ -59,15 +59,7 @@
                                Opacity="0.85"/>
                 </StackPanel>
                 
-                <!-- HÌNH COFFEE -->
-                <Border Width="260" Height="260" Background="#FFFFFF" CornerRadius="20" Padding="12" Margin="0,0,0,30" BorderBrush="#FFFFFF" BorderThickness="3">
-                    <Border.Effect>
-                        <DropShadowEffect Color="#2D5F3F" BlurRadius="20" ShadowDepth="0" Opacity="0.2"/>
-                    </Border.Effect>
-                    <Image Source="HinhAnh/cafe_sua_da.png" 
-                           Stretch="UniformToFill"
-                           RenderOptions.BitmapScalingMode="HighQuality"/>
-                </Border>
+              
                 
                 <!-- TAGLINE -->
                 <TextBlock Text="Quản lý bán hàng chuyên nghiệp" 
