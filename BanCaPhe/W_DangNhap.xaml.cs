@@ -1,0 +1,33 @@
+using BanCaPhe.Helpers;
+using BanCaPhe.Models;
+using BanCaPhe.Services;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
+
+namespace BanCaPhe
+{
+    public partial class W_DangNhap : Window
+    {
+        public W_DangNhap()
+        {
+            InitializeComponent();
+        }
+
+        private void TextQuyenmatkhau_Click(object sender, MouseButtonEventArgs e)
+        {
+            MessageBox.Show("Tính năng đang được phát triển");
+        }
+    }
+}
