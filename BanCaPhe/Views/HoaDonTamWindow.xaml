@@ -135,28 +135,41 @@
                 <!-- SEPARATOR -->
                 <Border Height="2" Background="#A8D5BA" Margin="0,0,0,12"/>
 
-                <!-- TOTAL -->
-                <Grid Margin="0,0,0,16">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="200"/>
-                    </Grid.ColumnDefinitions>
+                <!-- TOTAL BREAKDOWN -->
+                <StackPanel Margin="0,0,0,16">
+                    <!-- Tiền hàng -->
+                    <Grid Margin="0,4">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Tiền hàng:" FontSize="13" Foreground="#1F4D3D"/>
+                        <TextBlock Grid.Column="1" Text="{Binding TongTien, StringFormat={}{0:N0} đ}" FontSize="13" Foreground="#1F4D3D" FontWeight="Medium" TextAlignment="Right"/>
+                    </Grid>
 
-                    <TextBlock Grid.Column="0" 
-                               Text="Tổng tiền tạm tính:" 
-                               FontSize="13"
-                               FontWeight="Bold"
-                               Foreground="#1F4D3D"
-                               VerticalAlignment="Center"/>
+                    <!-- Giảm giá -->
+                    <Grid Margin="0,4">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Giảm giá:" FontSize="13" Foreground="#D9534F"/>
+                        <TextBlock Grid.Column="1" Text="{Binding GiamGia, StringFormat={}-{0:N0} đ}" FontSize="13" Foreground="#D9534F" FontWeight="Medium" TextAlignment="Right"/>
+                    </Grid>
 
-                    <TextBlock Grid.Column="1" 
-                               Text="{Binding TongTien, StringFormat={}{0:N0} đ}"
-                               FontSize="16"
-                               FontWeight="Bold"
-                               Foreground="#2D7A5C"
-                               TextAlignment="Right"
-                               VerticalAlignment="Center"/>
-                </Grid>
+                    <!-- SEPARATOR -->
+                    <Border Height="1" Background="#E0E0E0" Margin="0,8"/>
+
+                    <!-- TỔNG -->
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="TỔNG CỘNG:" FontSize="15" FontWeight="Bold" Foreground="#1F4D3D" VerticalAlignment="Center"/>
+                        <TextBlock Grid.Column="1" Text="{Binding TongPhaiThanhToan, StringFormat={}{0:N0} đ}" FontSize="18" FontWeight="Bold" Foreground="#2D7A5C" TextAlignment="Right" VerticalAlignment="Center"/>
+                    </Grid>
+                </StackPanel>
 
                 <!-- QR CODE SECTION -->
                 <StackPanel HorizontalAlignment="Center" Margin="0,0,0,16">
