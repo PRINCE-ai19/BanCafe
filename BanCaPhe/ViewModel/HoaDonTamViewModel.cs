@@ -17,6 +17,8 @@ namespace BanCaPhe.ViewModel
     {
         public ObservableCollection<OrderItem> Items { get; }
         public decimal TongTien { get; }
+        public decimal GiamGia { get; }
+        public decimal TongPhaiThanhToan { get; }
 
         private System.Windows.Media.Imaging.BitmapImage _qrCodeImage;
         public System.Windows.Media.Imaging.BitmapImage QrCodeImage
@@ -31,10 +33,14 @@ namespace BanCaPhe.ViewModel
 
         public HoaDonTamViewModel(
             ObservableCollection<OrderItem> items,
-            decimal tongTien)
+            decimal tongTien,
+            decimal giamGia,
+            decimal tongPhaiThanhToan)
         {
             Items = new ObservableCollection<OrderItem>(items);
             TongTien = tongTien;
+            GiamGia = giamGia;
+            TongPhaiThanhToan = tongPhaiThanhToan;
 
             XuatPdfCommand = new RelayCommand(_ => XuatPdf());
 
@@ -73,7 +79,7 @@ namespace BanCaPhe.ViewModel
 
             if (saveDialog.ShowDialog() == true)
             {
-                var document = new HoaDonTamPdf(Items, TongTien, QrCodePayload);
+                var document = new HoaDonTamPdf(Items, TongTien, GiamGia, TongPhaiThanhToan, QrCodePayload);
                 document.GeneratePdf(saveDialog.FileName);
             }
         }

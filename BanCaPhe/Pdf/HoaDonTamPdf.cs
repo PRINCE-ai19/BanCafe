@@ -15,12 +15,16 @@ namespace BanCaPhe.Pdf
     {
         private readonly IEnumerable<OrderItem> _items;
         private readonly decimal _tongTien;
+        private readonly decimal _giamGia;
+        private readonly decimal _tongPhaiThanhToan;
         private readonly string _qrCodePayload;
 
-        public HoaDonTamPdf(IEnumerable<OrderItem> items, decimal tongTien, string qrCodePayload = null)
+        public HoaDonTamPdf(IEnumerable<OrderItem> items, decimal tongTien, decimal giamGia, decimal tongPhaiThanhToan, string qrCodePayload = null)
         {
             _items = items;
             _tongTien = tongTien;
+            _giamGia = giamGia;
+            _tongPhaiThanhToan = tongPhaiThanhToan;
             _qrCodePayload = qrCodePayload;
         }
 
@@ -92,17 +96,33 @@ namespace BanCaPhe.Pdf
                     }
 
                     // TỔNG 
-                    col.Item().PaddingTop(10).Row(row =>
+                    col.Item().PaddingTop(10).Column(totalCol =>
                     {
-                        row.RelativeItem().Text("TỔNG CỘNG")
-                            .Bold()
-                            .FontSize(13);
-                        row.ConstantItem(100)
-                           .AlignRight()
-                           .Text($"{_tongTien:N0} đ")
-                           .Bold()
-                           .FontSize(13)
-                           .FontColor(QuestPDF.Helpers.Colors.Red.Darken1);
+                        totalCol.Spacing(5);
+
+                        totalCol.Item().Row(row =>
+                        {
+                            row.RelativeItem().Text("TỔNG CỘNG").Bold();
+                            row.ConstantItem(100).AlignRight().Text($"{_tongTien:N0} đ").Bold();
+                        });
+
+                        if (_giamGia > 0)
+                        {
+                            totalCol.Item().Row(row =>
+                            {
+                                row.RelativeItem().Text("GIẢM GIÁ").FontColor(QuestPDF.Helpers.Colors.Grey.Darken2);
+                                row.ConstantItem(100).AlignRight().Text($"- {_giamGia:N0} đ").FontColor(QuestPDF.Helpers.Colors.Grey.Darken2);
+                            });
+                        }
+
+                        totalCol.Item().Row(row =>
+                        {
+                            row.RelativeItem().Text("THANH TOÁN").Bold().FontSize(14);
+                            row.ConstantItem(100).AlignRight().Text($"{_tongPhaiThanhToan:N0} đ")
+                                .Bold()
+                                .FontSize(14)
+                                .FontColor(QuestPDF.Helpers.Colors.Red.Darken1);
+                        });
                     });
 
                     // QR CODE

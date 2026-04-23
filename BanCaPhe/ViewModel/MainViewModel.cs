@@ -208,7 +208,11 @@ namespace BanCaPhe.ViewModel
 
         private void MoHoaDonTam()
         {
-            var vm = new HoaDonTamViewModel(CartService.Instance.Items, CartService.Instance.TongTien);
+            var vm = new HoaDonTamViewModel(
+                CartService.Instance.Items, 
+                CartService.Instance.TongTien,
+                CartService.Instance.GiamGia,
+                CartService.Instance.TongPhaiThanhToan);
             var view = new HoaDonTamWindow { DataContext = vm };
             view.ShowDialog();
         }
@@ -220,7 +224,7 @@ namespace BanCaPhe.ViewModel
                 DialogService.ShowError("Giỏ hàng đang trống!");
                 return;
             }
-            var vm = new ThanhToanViewModel(TongPhaiThanhToan, DonHang);
+            var vm = new ThanhToanViewModel(TongTienGoc, GiamGia, TongPhaiThanhToan, DonHang);
             var view = new ThanhToanWindow { DataContext = vm, Owner = Application.Current.MainWindow };
             view.ShowDialog();
         }

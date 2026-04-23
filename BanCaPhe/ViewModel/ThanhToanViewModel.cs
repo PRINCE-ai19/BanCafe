@@ -14,7 +14,9 @@ namespace BanCaPhe.ViewModel
 {
     internal class ThanhToanViewModel : BaseViewModel
     {
-        public decimal TongTien { get; }
+        public decimal TongTienGoc { get; }
+        public decimal GiamGia { get; }
+        public decimal TongPhaiThanhToan { get; }
         public ObservableCollection<OrderItem> Items { get; }
 
         public ICommand TienMatCommand { get; }
@@ -22,9 +24,11 @@ namespace BanCaPhe.ViewModel
         public ICommand VnpayCommand { get; }
         public ICommand DongCommand { get; }
 
-        public ThanhToanViewModel(decimal tongTien, ObservableCollection<OrderItem> items)
+        public ThanhToanViewModel(decimal tongTienGoc, decimal giamGia, decimal tongPhaiThanhToan, ObservableCollection<OrderItem> items)
         {
-            TongTien = tongTien;
+            TongTienGoc = tongTienGoc;
+            GiamGia = giamGia;
+            TongPhaiThanhToan = tongPhaiThanhToan;
             Items = items;
 
             TienMatCommand = new RelayCommand(_ => ThanhToanTienMat());
@@ -37,7 +41,7 @@ namespace BanCaPhe.ViewModel
         private void ThanhToanTienMat()
         {
       
-            var vm = new ThanhToanTienMatViewModel(TongTien);
+            var vm = new ThanhToanTienMatViewModel(TongTienGoc);
 
             var view = new ThanhToanTienMatView
             {
@@ -74,7 +78,7 @@ namespace BanCaPhe.ViewModel
                 {
                     NgayLap = DateTime.Now,
                     NhanVienID = currentUser?.ID ?? 0,
-                    TongTien = TongTien,
+                    TongTien = TongPhaiThanhToan,
                     HinhThucThanhToan = "Chuyen khoan",
                     KhachHangID = CartService.Instance.CurrentKhachHang?.ID,
                     MaGiaoDich = maGiaoDich,
@@ -85,12 +89,12 @@ namespace BanCaPhe.ViewModel
                 donHangService.ThanhToan(donHang, items);
 
      
-                var result = await payOSService.CreatePaymentLink((long)TongTien);
+                var result = await payOSService.CreatePaymentLink((long)TongPhaiThanhToan);
 
                 if (result != null && !string.IsNullOrEmpty(result.QrCode))
                 {
                     // 4. Mở Form hiển thị mã QR (MVVM)
-                    var qrVM = new ThanhToanQRViewModel(result.QrCode, TongTien, result.OrderCode);
+                    var qrVM = new ThanhToanQRViewModel(result.QrCode, TongPhaiThanhToan, result.OrderCode);
                     var qrWindow = new W_ThanhToanQR
                     {
                         DataContext = qrVM,
@@ -114,7 +118,7 @@ namespace BanCaPhe.ViewModel
                         donHangService.UpdateTrangThaiThanhToan(maGiaoDich, "Thanh toán thành công");
 
                         // 5. Hiện form thành công
-                        var successVM = new ThanhToanThanhCongViewModel(maGiaoDich, TongTien, () => {
+                        var successVM = new ThanhToanThanhCongViewModel(maGiaoDich, TongPhaiThanhToan, () => {
                             // Sẽ gán sau khi tạo window
                         });
 
@@ -123,7 +127,7 @@ namespace BanCaPhe.ViewModel
                             Owner = Application.Current.Windows.OfType<Window>().FirstOrDefault(w => w.IsActive)
                         };
 
-                        successVM = new ThanhToanThanhCongViewModel(maGiaoDich, TongTien, () => {
+                        successVM = new ThanhToanThanhCongViewModel(maGiaoDich, TongPhaiThanhToan, () => {
                             successWindow.Close();
                         });
                         successWindow.DataContext = successVM;
