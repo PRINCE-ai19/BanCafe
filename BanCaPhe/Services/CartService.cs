@@ -19,6 +19,18 @@ namespace BanCaPhe.Services
         private CartService()
         {
             _khachHangService = new KhachHangService();
+            Items.CollectionChanged += Items_CollectionChanged;
+        }
+
+        private void Items_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            NotifyTongTienChanged();
+
+            // Nếu giỏ hàng trống thì xóa luôn khách hàng/mã giảm giá đang áp dụng
+            if (Items.Count == 0)
+            {
+                CurrentKhachHang = null;
+            }
         }
 
         private KhachHang _currentKhachHang;

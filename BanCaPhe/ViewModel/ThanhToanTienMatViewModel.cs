@@ -200,7 +200,7 @@ namespace BanCaPhe.ViewModel
             {
                 TienKhachDuaText = _tienKhachDuaText.Substring(0, _tienKhachDuaText.Length - 1);
                 if (string.IsNullOrEmpty(_tienKhachDuaText))
-                    TienKhachDuaText = "0";
+                    TienKhachDuaText = "0"; 
             }
         }
 
