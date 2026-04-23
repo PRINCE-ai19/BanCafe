@@ -74,7 +74,6 @@ namespace BanCaPhe.ViewModel
                 _tienKhachDuaText = value;
                 OnPropertyChanged();
 
-                // Parse và cập nhật TienKhachDua
                 if (decimal.TryParse(value.Replace(",", "").Replace(".", ""), out decimal tien))
                 {
                     TienKhachDua = tien;
