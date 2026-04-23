@@ -1,59 +1,149 @@
-﻿<Window x:Class="BanCaPhe.Views.ThanhToanWindow"
+<Window x:Class="BanCaPhe.Views.ThanhToanWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:BanCaPhe.Views"
-        mc:Ignorable="d"
-       WindowStartupLocation="CenterOwner"
+        WindowStartupLocation="CenterOwner"
         ResizeMode="NoResize"
         SizeToContent="WidthAndHeight"
         WindowStyle="None"
         AllowsTransparency="True"
         Background="Transparent">
-    <Border CornerRadius="12"
-            Background="{StaticResource SurfaceContainerLowestBrush}"
-            Padding="20"
-            Width="320">
 
-        <StackPanel>
+    <Window.Resources>
+        <!-- Style for Payment Method Buttons -->
+        <Style x:Key="PaymentMethodButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#FFFFFF"/>
+            <Setter Property="Foreground" Value="#1F4D3D"/>
+            <Setter Property="BorderBrush" Value="#E8F0E8"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Padding" Value="15"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" 
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="12"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="#7EC9A3"/>
+                                <Setter TargetName="border" Property="Background" Value="#F0F7F3"/>
+                                <Setter TargetName="border" Property="Effect">
+                                    <Setter.Value>
+                                        <DropShadowEffect BlurRadius="10" ShadowDepth="2" Opacity="0.1" Color="#000000"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#E8F0E8"/>
+                                <Setter TargetName="border" Property="BorderThickness" Value="2"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
 
-            <!-- TITLE -->
-            <TextBlock Text="Chọn phương thức thanh toán"
-                       FontSize="18"
-                       FontWeight="Bold"
-                       Margin="0,0,0,15"
-                       TextAlignment="Center"
-                       Foreground="{StaticResource OnSurfaceBrush}"/>
+    <Grid Margin="20">
+        <!-- Main Shadow -->
+        <Border CornerRadius="16" Background="#FFFFFF" Margin="10">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="25" ShadowDepth="8" Opacity="0.15" Color="#000000"/>
+            </Border.Effect>
+        </Border>
 
-            <!-- TIỀN MẶT -->
-            <Button Content="💵 Tiền mặt"
-                    Height="45"
-                    Margin="0,5"
-                    Style="{StaticResource PrimaryButtonStyle}"
-                    Command="{Binding TienMatCommand}"/>
+        <!-- Content -->
+        <Border CornerRadius="16" Background="#FFFFFF" Padding="30" Width="360" Margin="10">
+            <StackPanel>
+                
+                <!-- Icon Header -->
+                <Border Width="64" Height="64" CornerRadius="32" Background="#F0F7F3" HorizontalAlignment="Center" Margin="0,0,0,15">
+                    <TextBlock Text="💳" FontSize="32" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Border>
 
-            <!-- CHUYỂN KHOẢN -->
-            <Button Content="💳 Chuyển khoản"
-                    Height="45"
-                    Margin="0,5"
-                    Style="{StaticResource PrimaryButtonStyle}"
-                    Command="{Binding ChuyenKhoanCommand}"/>
+                <!-- TITLE -->
+                <TextBlock Text="Thanh toán đơn hàng"
+                           FontSize="22"
+                           FontWeight="Bold"
+                           TextAlignment="Center"
+                           Foreground="#1F4D3D"
+                           Margin="0,0,0,5"/>
+                <TextBlock Text="Vui lòng chọn phương thức thanh toán"
+                           FontSize="13"
+                           TextAlignment="Center"
+                           Foreground="#6B8B7E"
+                           Margin="0,0,0,25"/>
 
-            <!-- VNPAY -->
-            <Button Content="📱 VNPay QR"
-                    Height="45"
-                    Margin="0,5"
-                    Style="{StaticResource PrimaryButtonStyle}"
-                    Command="{Binding VnpayCommand}"/>
+                <!-- TIỀN MẶT -->
+                <Button Style="{StaticResource PaymentMethodButtonStyle}" Margin="0,0,0,12" Command="{Binding TienMatCommand}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <TextBlock Grid.Column="0" Text="💵" FontSize="26" VerticalAlignment="Center" Margin="0,0,15,0"/>
+                        
+                        <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                            <TextBlock Text="Tiền mặt" FontWeight="Bold" FontSize="16" Foreground="#1F4D3D"/>
+                            <TextBlock Text="Thanh toán trực tiếp tại quầy" FontSize="12" Foreground="#6B8B7E" Margin="0,2,0,0"/>
+                        </StackPanel>
+                        
+                        <TextBlock Grid.Column="2" Text="➔" FontSize="18" Foreground="#A8D5BA" VerticalAlignment="Center"/>
+                    </Grid>
+                </Button>
 
-            <!-- HỦY -->
-            <Button Content="Hủy"
-                    Height="35"
-                    Margin="0,15,0,0"
-                    Style="{StaticResource SecondaryButtonStyle}"
-                    Command="{Binding DongCommand}"/>
+                <!-- VNPAY -->
+                <Button Style="{StaticResource PaymentMethodButtonStyle}" Margin="0,0,0,25" Command="{Binding VnpayCommand}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <TextBlock Grid.Column="0" Text="📱" FontSize="26" VerticalAlignment="Center" Margin="0,0,15,0"/>
+                        
+                        <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                            <TextBlock Text="VNPay QR" FontWeight="Bold" FontSize="16" Foreground="#1F4D3D"/>
+                            <TextBlock Text="Quét mã QR qua ví điện tử" FontSize="12" Foreground="#6B8B7E" Margin="0,2,0,0"/>
+                        </StackPanel>
+                        
+                        <TextBlock Grid.Column="2" Text="➔" FontSize="18" Foreground="#A8D5BA" VerticalAlignment="Center"/>
+                    </Grid>
+                </Button>
 
-        </StackPanel>
-    </Border>
+                <!-- HỦY -->
+                <Button Content="Hủy bỏ giao dịch"
+                        Height="45"
+                        Background="Transparent"
+                        Foreground="#C62828"
+                        BorderThickness="0"
+                        FontWeight="Bold"
+                        FontSize="14"
+                        Cursor="Hand"
+                        Command="{Binding DongCommand}">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border x:Name="border" Background="{TemplateBinding Background}" CornerRadius="8">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="border" Property="Background" Value="#FFEBEE"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+
+            </StackPanel>
+        </Border>
+    </Grid>
 </Window>

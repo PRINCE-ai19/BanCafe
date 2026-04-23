@@ -8,197 +8,192 @@
         <vm:ToppingViewModel/>
     </UserControl.DataContext>
 
-    <Grid Margin="0" Background="#FAFAF8">
+    <Grid Background="{StaticResource Admin.BgBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- HEADER -->
-        <Border Grid.Row="0" Background="#2D5F3F" Padding="20,12,20,12" Margin="0">
+        <!-- ═══════════════════════ TOOLBAR ═══════════════════════ -->
+        <Border Grid.Row="0"
+                Background="{StaticResource Admin.SurfaceBrush}"
+                BorderBrush="{StaticResource Admin.BorderBrush}"
+                BorderThickness="0,0,0,1"
+                Padding="24,14,24,14">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                    <TextBlock Text="🍯 Quản lý topping"
-                               FontSize="16"
-                               FontWeight="Bold"
-                               Foreground="#FFFFFF"
-                               VerticalAlignment="Center"/>
-                    <TextBlock Text="{Binding DanhSachTopping.Count, StringFormat=({0} topping)}"
-                               FontSize="12"
-                               Foreground="#D0E8DC"
-                               VerticalAlignment="Center"
-                               Margin="12,0,0,0"/>
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock FontFamily="{StaticResource HeadlineFont}"
+                               FontSize="18" FontWeight="Bold"
+                               Foreground="{StaticResource Admin.TextPrimaryBrush}">
+                        <Run Text="🍯 "/>
+                        <Run Text="Quản lý Topping"/>
+                    </TextBlock>
+                    <TextBlock Text="{Binding DanhSachTopping.Count, StringFormat=Tổng cộng {0} topping}"
+                               FontFamily="{StaticResource BodyFont}"
+                               FontSize="13" Foreground="{StaticResource Admin.TextMutedBrush}"
+                               Margin="0,2,0,0"/>
                 </StackPanel>
 
-                <!-- ADD BUTTON -->
                 <Button Grid.Column="1"
-                        Content="+ Thêm topping"
-                        Height="36"
-                        Padding="16,8"
-                        Background="#A8D5BA"
-                        Foreground="#1F4D3D"
-                        FontWeight="Bold"
-                        FontSize="12"
-                        BorderThickness="0"
-                        Cursor="Hand"
-                        Command="{Binding ThemCommand}">
-                    <Button.Resources>
-                        <Style TargetType="Border">
-                            <Setter Property="CornerRadius" Value="18"/>
-                        </Style>
-                    </Button.Resources>
-                </Button>
+                        Content="＋  Thêm topping"
+                        Style="{StaticResource AdminAddButtonStyle}"
+                        Command="{Binding ThemCommand}"/>
             </Grid>
         </Border>
 
-        <!-- DATAGRID -->
+        <!-- ═══════════════════════ DATAGRID ═══════════════════════ -->
         <DataGrid x:Name="dgTopping"
                   Grid.Row="1"
                   AutoGenerateColumns="False"
                   CanUserAddRows="False"
+                  CanUserResizeRows="False"
                   IsReadOnly="True"
-                  RowHeight="60"
                   SelectionMode="Single"
                   ItemsSource="{Binding DanhSachTopping}"
                   SelectedItem="{Binding SelectedTopping}"
-                  Background="#FFFFFF"
-                  Foreground="#1F4D3D"
-                  BorderBrush="#D0E8DC"
-                  BorderThickness="1"
-                  GridLinesVisibility="Horizontal"
-                  HorizontalGridLinesBrush="#E8F0E8"
-                  Margin="0">
-
-            <DataGrid.ColumnHeaderStyle>
-                <Style TargetType="DataGridColumnHeader">
-                    <Setter Property="Background" Value="#E8F0E8"/>
-                    <Setter Property="Foreground" Value="#2D5F3F"/>
-                    <Setter Property="FontWeight" Value="Bold"/>
-                    <Setter Property="FontSize" Value="12"/>
-                    <Setter Property="Padding" Value="12,8"/>
-                    <Setter Property="BorderBrush" Value="#D0E8DC"/>
-                    <Setter Property="BorderThickness" Value="0,0,1,1"/>
-                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                </Style>
-            </DataGrid.ColumnHeaderStyle>
-
-            <DataGrid.RowStyle>
-                <Style TargetType="DataGridRow">
-                    <Setter Property="Background" Value="#FFFFFF"/>
-                    <Style.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="#F1F8F4"/>
-                        </Trigger>
-                        <Trigger Property="IsSelected" Value="True">
-                            <Setter Property="Background" Value="#E8F0E8"/>
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </DataGrid.RowStyle>
-
-            <DataGrid.CellStyle>
-                <Style TargetType="DataGridCell">
-                    <Setter Property="BorderThickness" Value="0"/>
-                    <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-                    <Setter Property="VerticalAlignment" Value="Center"/>
-                    <Setter Property="Padding" Value="8,0"/>
-                </Style>
-            </DataGrid.CellStyle>
+                  RowStyle="{StaticResource AdminRowStyle}"
+                  CellStyle="{StaticResource AdminCellStyle}"
+                  ColumnHeaderStyle="{StaticResource AdminHeaderStyle}"
+                  Background="{StaticResource Admin.SurfaceBrush}"
+                  RowHeight="64"
+                  BorderThickness="0"
+                  GridLinesVisibility="None"
+                  HorizontalScrollBarVisibility="Auto"
+                  RowHeaderWidth="0">
 
             <DataGrid.Columns>
 
-                <!-- ẢNH -->
-                <DataGridTemplateColumn Header="Ảnh" Width="70">
+                <!-- ── ẢNH ── -->
+                <DataGridTemplateColumn Header="Ảnh" Width="80" CanUserSort="False" CanUserResize="False">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Border Width="45"
-                                    Height="45"
-                                    CornerRadius="22.5"
-                                    BorderBrush="#D0E8DC"
-                                    BorderThickness="2"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    Background="#FFF9E6">
-                                <Image Source="{Binding HinhAnh}"
-                                       Stretch="UniformToFill"/>
+                            <Border Width="46" Height="46"
+                                    CornerRadius="23"
+                                    Background="#FFFBEB"
+                                    HorizontalAlignment="Center">
+                                <Border.Clip>
+                                    <EllipseGeometry Center="23,23" RadiusX="23" RadiusY="23"/>
+                                </Border.Clip>
+                                <Image Source="{Binding HinhAnh}" Stretch="UniformToFill"/>
                             </Border>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-                <!-- TÊN -->
-                <DataGridTextColumn Header="Tên topping"
-                                    Binding="{Binding TenTopping}"
-                                    Width="*"/>
-
-                <!-- GIÁ -->
-                <DataGridTextColumn Header="Giá"
-                                    Binding="{Binding Gia, StringFormat={}{0:N0} đ}"
-                                    Width="120"/>
-
-                <!-- BÁN RIÊNG -->
-                <DataGridCheckBoxColumn Header="Bán riêng"
-                                        Binding="{Binding CoTheBanRieng}"
-                                        Width="100"/>
-
-                <!-- CÒN BÁN -->
-                <DataGridCheckBoxColumn Header="Còn bán"
-                                        Binding="{Binding ConBan}"
-                                        Width="90"/>
-
-                <!-- THAO TÁC -->
-                <DataGridTemplateColumn Header="Thao tác" Width="140">
+                <!-- ── TÊN TOPPING ── -->
+                <DataGridTemplateColumn Header="Tên topping" Width="*" MinWidth="140" SortMemberPath="TenTopping">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Horizontal"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Margin="4">
+                            <TextBlock Text="{Binding TenTopping}"
+                                       FontFamily="{StaticResource BodyFont}"
+                                       FontSize="14" FontWeight="SemiBold"
+                                       Foreground="{StaticResource Admin.TextPrimaryBrush}"
+                                       TextTrimming="CharacterEllipsis"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
 
-                                <!-- NÚT SỬA -->
-                                <Button Content="✎ Sửa"
-                                        Width="60"
-                                        Height="32"
-                                        Margin="0,0,4,0"
-                                        Background="#A8D5BA"
-                                        Foreground="#1F4D3D"
-                                        FontWeight="Bold"
-                                        FontSize="10"
-                                        BorderThickness="0"
-                                        Cursor="Hand"
+                <!-- ── GIÁ ── -->
+                <DataGridTemplateColumn Header="Giá" Width="130" SortMemberPath="Gia">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Gia, StringFormat={}{0:N0} đ}"
+                                       FontFamily="{StaticResource BodyFont}"
+                                       FontSize="14" FontWeight="SemiBold"
+                                       Foreground="{StaticResource Admin.GreenBrush}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <!-- ── BÁN RIÊNG ── -->
+                <DataGridTemplateColumn Header="Bán riêng" Width="120" SortMemberPath="CoTheBanRieng">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Border HorizontalAlignment="Left" CornerRadius="20" Padding="10,4">
+                                <Border.Style>
+                                    <Style TargetType="Border">
+                                        <Setter Property="Background" Value="#DCFCE7"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding CoTheBanRieng}" Value="False">
+                                                <Setter Property="Background" Value="#F1F5F9"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+                                <TextBlock FontFamily="{StaticResource BodyFont}"
+                                           FontSize="12" FontWeight="SemiBold">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="Text" Value="Có"/>
+                                            <Setter Property="Foreground" Value="#16A34A"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding CoTheBanRieng}" Value="False">
+                                                    <Setter Property="Text" Value="Không"/>
+                                                    <Setter Property="Foreground" Value="#64748B"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                            </Border>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <!-- ── CÒN BÁN ── -->
+                <DataGridTemplateColumn Header="Trạng thái" Width="120" SortMemberPath="ConBan">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Border HorizontalAlignment="Left" CornerRadius="20" Padding="10,4">
+                                <Border.Style>
+                                    <Style TargetType="Border">
+                                        <Setter Property="Background" Value="#DCFCE7"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ConBan}" Value="False">
+                                                <Setter Property="Background" Value="#FEE2E2"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+                                <TextBlock FontFamily="{StaticResource BodyFont}"
+                                           FontSize="12" FontWeight="SemiBold">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="Text" Value="Còn bán"/>
+                                            <Setter Property="Foreground" Value="#16A34A"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding ConBan}" Value="False">
+                                                    <Setter Property="Text" Value="Ngừng bán"/>
+                                                    <Setter Property="Foreground" Value="#DC2626"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                            </Border>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <!-- ── THAO TÁC ── -->
+                <DataGridTemplateColumn Header="Thao tác" Width="148" CanUserSort="False" CanUserResize="False">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <Button Content="✎  Sửa"
+                                        Style="{StaticResource AdminEditButtonStyle}"
+                                        Margin="0,0,6,0"
                                         Command="{Binding DataContext.SuaCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
-                                        CommandParameter="{Binding}">
-                                    <Button.Resources>
-                                        <Style TargetType="Border">
-                                            <Setter Property="CornerRadius" Value="6"/>
-                                        </Style>
-                                    </Button.Resources>
-                                </Button>
-
-                                <!-- NÚT XÓA -->
-                                <Button Content="✕ Xóa"
-                                        Width="60"
-                                        Height="32"
-                                        Background="#FFCDD2"
-                                        Foreground="#C62828"
-                                        FontWeight="Bold"
-                                        FontSize="10"
-                                        BorderThickness="0"
-                                        Cursor="Hand"
+                                        CommandParameter="{Binding}"/>
+                                <Button Content="✕  Xóa"
+                                        Style="{StaticResource AdminDeleteButtonStyle}"
                                         Command="{Binding DataContext.XoaCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
-                                        CommandParameter="{Binding}">
-                                    <Button.Resources>
-                                        <Style TargetType="Border">
-                                            <Setter Property="CornerRadius" Value="6"/>
-                                        </Style>
-                                    </Button.Resources>
-                                </Button>
-
+                                        CommandParameter="{Binding}"/>
                             </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>

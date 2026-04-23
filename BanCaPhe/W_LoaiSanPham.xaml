@@ -8,183 +8,147 @@
         <vm:LoaiSanPhamViewModel/>
     </UserControl.DataContext>
 
-    <Grid Margin="0" Background="#FAFAF8">
+    <Grid Background="{StaticResource Admin.BgBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- HEADER -->
-        <Border Grid.Row="0" Background="#2D5F3F" Padding="20,12,20,12" Margin="0">
+        <!-- ═══════════════════════ TOOLBAR ═══════════════════════ -->
+        <Border Grid.Row="0"
+                Background="{StaticResource Admin.SurfaceBrush}"
+                BorderBrush="{StaticResource Admin.BorderBrush}"
+                BorderThickness="0,0,0,1"
+                Padding="24,14,24,14">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                    <TextBlock Text="📂 Quản lý danh mục"
-                               FontSize="16"
-                               FontWeight="Bold"
-                               Foreground="#FFFFFF"
-                               VerticalAlignment="Center"/>
-                    <TextBlock Text="{Binding DanhMucList.Count, StringFormat=({0} danh mục)}"
-                               FontSize="12"
-                               Foreground="#D0E8DC"
-                               VerticalAlignment="Center"
-                               Margin="12,0,0,0"/>
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock FontFamily="{StaticResource HeadlineFont}"
+                               FontSize="18" FontWeight="Bold"
+                               Foreground="{StaticResource Admin.TextPrimaryBrush}">
+                        <Run Text="📂 "/>
+                        <Run Text="Quản lý Danh mục"/>
+                    </TextBlock>
+                    <TextBlock Text="{Binding DanhMucList.Count, StringFormat=Tổng cộng {0} danh mục}"
+                               FontFamily="{StaticResource BodyFont}"
+                               FontSize="13" Foreground="{StaticResource Admin.TextMutedBrush}"
+                               Margin="0,2,0,0"/>
                 </StackPanel>
 
-                <!-- ADD BUTTON -->
                 <Button Grid.Column="1"
-                        Content="+ Thêm danh mục"
-                        Height="36"
-                        Padding="16,8"
-                        Background="#A8D5BA"
-                        Foreground="#1F4D3D"
-                        FontWeight="Bold"
-                        FontSize="12"
-                        BorderThickness="0"
-                        Cursor="Hand"
-                        Command="{Binding ThemCommand}">
-                    <Button.Resources>
-                        <Style TargetType="Border">
-                            <Setter Property="CornerRadius" Value="18"/>
-                        </Style>
-                    </Button.Resources>
-                </Button>
+                        Content="＋  Thêm danh mục"
+                        Style="{StaticResource AdminAddButtonStyle}"
+                        Command="{Binding ThemCommand}"/>
             </Grid>
         </Border>
 
-        <!-- FORM NHẬP -->
+        <!-- ═══════════════════════ FORM NHẬP ═══════════════════════ -->
         <Border Grid.Row="1"
-                Padding="20"
-                Background="#FFFFFF"
-                BorderBrush="#D0E8DC"
+                Background="{StaticResource Admin.SurfaceBrush}"
+                BorderBrush="{StaticResource Admin.BorderBrush}"
                 BorderThickness="0,0,0,1"
-                Margin="0">
-
+                Padding="24,16">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="180"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
                 <!-- TÊN LOẠI -->
-                <StackPanel>
-                    <TextBlock Text="Tên loại" FontWeight="Bold" Foreground="#2D5F3F" FontSize="12" Margin="0,0,0,6"/>
+                <StackPanel Margin="0,0,16,0">
+                    <TextBlock Text="Tên danh mục"
+                               FontFamily="{StaticResource BodyFont}"
+                               FontSize="12" FontWeight="SemiBold"
+                               Foreground="{StaticResource Admin.TextMutedBrush}"
+                               Margin="0,0,0,6"/>
                     <TextBox x:Name="txtTenLoai"
                              Text="{Binding TenLoai, UpdateSourceTrigger=PropertyChanged}"
-                             Height="36"
-                             Padding="12,9"
-                             FontSize="12"
-                             Background="#F1F8F4"
-                             Foreground="#2D5F3F"
-                             BorderBrush="#D0E8DC"
-                             BorderThickness="1"
-                             Margin="0,0,10,0"/>
+                             Style="{StaticResource DefaultTextBoxStyle}"
+                             Height="40"/>
                 </StackPanel>
 
                 <!-- VỊ TRÍ -->
-                <StackPanel Grid.Column="1">
-                    <TextBlock Text="Vị trí" FontWeight="Bold" Foreground="#2D5F3F" FontSize="12" Margin="0,0,0,6"/>
+                <StackPanel Grid.Column="1" Margin="0,0,16,0">
+                    <TextBlock Text="Vị trí hiển thị"
+                               FontFamily="{StaticResource BodyFont}"
+                               FontSize="12" FontWeight="SemiBold"
+                               Foreground="{StaticResource Admin.TextMutedBrush}"
+                               Margin="0,0,0,6"/>
                     <TextBox x:Name="txtViTri"
                              Text="{Binding ViTri, UpdateSourceTrigger=PropertyChanged}"
-                             Height="36"
-                             Padding="12,9"
-                             FontSize="12"
-                             Background="#F1F8F4"
-                             Foreground="#2D5F3F"
-                             BorderBrush="#D0E8DC"
-                             BorderThickness="1"/>
+                             Style="{StaticResource DefaultTextBoxStyle}"
+                             Height="40"/>
                 </StackPanel>
 
                 <!-- BUTTONS -->
-                <StackPanel Grid.Column="2"
-                            Orientation="Horizontal"
-                            VerticalAlignment="Bottom"
-                            Margin="20,0,0,0">
-
-                    <Button Content="✎ Sửa"
-                            Width="60"
-                            Height="36"
-                            Margin="0,0,4,0"
-                            Background="#A8D5BA"
-                            Foreground="#1F4D3D"
-                            FontWeight="Bold"
-                            FontSize="11"
-                            BorderThickness="0"
-                            Cursor="Hand"
-                            Command="{Binding SuaCommand}">
-                        <Button.Resources>
-                            <Style TargetType="Border">
-                                <Setter Property="CornerRadius" Value="18"/>
-                            </Style>
-                        </Button.Resources>
-                    </Button>
-
-                    <Button Content="✕ Xóa"
-                            Width="60"
-                            Height="36"
-                            Background="#FFCDD2"
-                            Foreground="#C62828"
-                            FontWeight="Bold"
-                            FontSize="11"
-                            BorderThickness="0"
-                            Cursor="Hand"
-                            Command="{Binding XoaCommand}">
-                        <Button.Resources>
-                            <Style TargetType="Border">
-                                <Setter Property="CornerRadius" Value="18"/>
-                            </Style>
-                        </Button.Resources>
-                    </Button>
+                <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Bottom">
+                    <Button Content="✎  Lưu"
+                            Style="{StaticResource AdminAddButtonStyle}"
+                            Width="90"
+                            Margin="0,0,8,0"
+                            Command="{Binding SuaCommand}"/>
+                    <Button Content="✕  Xóa"
+                            Style="{StaticResource AdminDeleteButtonStyle}"
+                            Width="90"
+                            Command="{Binding XoaCommand}"/>
                 </StackPanel>
             </Grid>
         </Border>
 
-        <!-- DATAGRID -->
+        <!-- ═══════════════════════ DATAGRID ═══════════════════════ -->
         <DataGrid x:Name="dgLoaiDoUong"
                   Grid.Row="2"
                   AutoGenerateColumns="False"
                   CanUserAddRows="False"
+                  CanUserResizeRows="False"
                   IsReadOnly="True"
-                  RowHeight="40"
                   SelectionMode="Single"
                   ItemsSource="{Binding DanhMucList}"
                   SelectedItem="{Binding SelectedDanhMuc}"
-                  Background="#FFFFFF"
-                  Foreground="#1F4D3D"
-                  BorderBrush="#D0E8DC"
-                  BorderThickness="1"
-                  GridLinesVisibility="Horizontal"
-                  HorizontalGridLinesBrush="#E8F0E8"
-                  Margin="0">
-
-            <DataGrid.ColumnHeaderStyle>
-                <Style TargetType="DataGridColumnHeader">
-                    <Setter Property="Background" Value="#E8F0E8"/>
-                    <Setter Property="Foreground" Value="#2D5F3F"/>
-                    <Setter Property="FontWeight" Value="Bold"/>
-                    <Setter Property="FontSize" Value="12"/>
-                    <Setter Property="Padding" Value="12,8"/>
-                    <Setter Property="BorderBrush" Value="#D0E8DC"/>
-                    <Setter Property="BorderThickness" Value="0,0,1,1"/>
-                </Style>
-            </DataGrid.ColumnHeaderStyle>
+                  RowStyle="{StaticResource AdminRowStyle}"
+                  CellStyle="{StaticResource AdminCellStyle}"
+                  ColumnHeaderStyle="{StaticResource AdminHeaderStyle}"
+                  Background="{StaticResource Admin.SurfaceBrush}"
+                  RowHeight="52"
+                  BorderThickness="0"
+                  GridLinesVisibility="None"
+                  HorizontalScrollBarVisibility="Auto"
+                  RowHeaderWidth="0">
 
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Tên loại"
-                                    Binding="{Binding TenLoai}"
-                                    Width="*"/>
 
-                <DataGridTextColumn Header="Vị trí"
-                                    Binding="{Binding ViTri}"
-                                    Width="120"/>
+                <!-- STT (tự tính) -->
+                <DataGridTemplateColumn Header="#" Width="60" CanUserSort="False" CanUserResize="False">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding ViTri}"
+                                       FontFamily="{StaticResource BodyFont}"
+                                       FontSize="13" FontWeight="SemiBold"
+                                       Foreground="{StaticResource Admin.TextMutedBrush}"
+                                       HorizontalAlignment="Center"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <!-- TÊN LOẠI -->
+                <DataGridTemplateColumn Header="Tên danh mục" Width="*" SortMemberPath="TenLoai">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding TenLoai}"
+                                       FontFamily="{StaticResource BodyFont}"
+                                       FontSize="14" FontWeight="SemiBold"
+                                       Foreground="{StaticResource Admin.TextPrimaryBrush}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
             </DataGrid.Columns>
         </DataGrid>
-
     </Grid>
 </UserControl>
