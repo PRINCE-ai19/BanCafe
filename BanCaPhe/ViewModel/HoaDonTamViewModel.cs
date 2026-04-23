@@ -52,7 +52,7 @@ namespace BanCaPhe.ViewModel
             try
             {
                 var payOSService = new BanCaPhe.Services.PayOSService();
-                var result = await payOSService.CreatePaymentLink((long)TongTien);
+                var result = await payOSService.CreatePaymentLink((long)TongPhaiThanhToan);
 
                 if (result != null && !string.IsNullOrEmpty(result.QrCode))
                 {
