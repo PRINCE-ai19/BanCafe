@@ -44,7 +44,7 @@
             <Border Grid.Column="0" Background="#E8F0E8" Padding="0">
                 <StackPanel>
                     <!-- Header Danh mục -->
-                    <Border Background="#2D5F3F" Padding="16,12,16,12">
+                    <Border Background="#2D5F3F" Padding="20,12,20,12">
                         <TextBlock Text="Danh mục" FontSize="14" FontWeight="Bold" Foreground="#FFFFFF"/>
                     </Border>
 
@@ -120,13 +120,13 @@
                             </Border>
 
                             <!-- Logout Button -->
-                            <Border Margin="0,0,0,0" Padding="12" CornerRadius="8" Background="#FFCDD2" Cursor="Hand" BorderBrush="#EF9A9A" BorderThickness="1">
+                            <Border Margin="0,8,0,0" Padding="10" CornerRadius="8" Background="#FFCDD2" Cursor="Hand" BorderBrush="#EF9A9A" BorderThickness="1">
                                 <Border.InputBindings>
                                     <MouseBinding MouseAction="LeftClick" Command="{Binding LogoutCommand}"/>
                                 </Border.InputBindings>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                    <TextBlock Text="⏻" FontSize="16" Foreground="#C62828" Margin="0,0,8,0"/>
-                                    <TextBlock Text="ĐĂNG XUẤT" FontWeight="Bold" Foreground="#C62828" FontSize="12"/>
+                                    <TextBlock Text="⏻" FontSize="14" Foreground="#C62828" Margin="0,0,6,0" VerticalAlignment="Center"/>
+                                    <TextBlock Text="Đăng xuất" FontWeight="SemiBold" Foreground="#C62828" FontSize="12" VerticalAlignment="Center"/>
                                 </StackPanel>
                             </Border>
                         </StackPanel>
@@ -229,8 +229,8 @@
                     </Grid.RowDefinitions>
 
                     <!-- Header Giỏ hàng -->
-                    <Border Grid.Row="0" Background="#2D5F3F" Padding="12,10">
-                        <TextBlock Text="Đơn hàng" FontSize="13" FontWeight="Bold" Foreground="#FFFFFF"/>
+                    <Border Grid.Row="0" Background="#2D5F3F" Padding="20,12,20,12">
+                        <TextBlock Text="Đơn hàng" FontSize="14" FontWeight="Bold" Foreground="#FFFFFF"/>
                     </Border>
 
                     <!-- Order Items (Middle - Flexible) -->

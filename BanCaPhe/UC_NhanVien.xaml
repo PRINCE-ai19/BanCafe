@@ -165,32 +165,13 @@
                                         Width="90"/>
 
                 <!-- THAO TÁC -->
-                <DataGridTemplateColumn Header="Thao tác" Width="260">
+                <DataGridTemplateColumn Header="Thao tác" Width="200">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
                                         Margin="4">
-
-                                <!-- NÚT THÊM -->
-                                <Button Content="+ Thêm"
-                                        Width="60"
-                                        Height="32"
-                                        Margin="0,0,4,0"
-                                        Background="#2D7A5C"
-                                        Foreground="#FFFFFF"
-                                        FontWeight="Bold"
-                                        FontSize="10"
-                                        BorderThickness="0"
-                                        Cursor="Hand"
-                                        Command="{Binding DataContext.ThemCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}">
-                                    <Button.Resources>
-                                        <Style TargetType="Border">
-                                            <Setter Property="CornerRadius" Value="6"/>
-                                        </Style>
-                                    </Button.Resources>
-                                </Button>
 
                                 <!-- NÚT SỬA -->
                                 <Button Content="✎ Sửa"

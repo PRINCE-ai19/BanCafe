@@ -2,52 +2,224 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:conv="clr-namespace:BanCaPhe.Converters"
-        Title="Lịch sử đơn hàng" Height="600" Width="900"
-        WindowStartupLocation="CenterScreen" Background="#FAFAF8">
+        Title="Lịch sử đơn hàng" Height="650" Width="1100"
+        WindowStartupLocation="CenterScreen" Background="#F5F7FA">
     
     <Window.Resources>
         <conv:ImagePathConverter x:Key="ImagePathConverter"/>
+        
+        <!-- Style cho DataGrid Header -->
+        <Style x:Key="DataGridHeaderStyle" TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="#2D5F3F"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Padding" Value="12,10"/>
+            <Setter Property="BorderThickness" Value="0,0,1,0"/>
+            <Setter Property="BorderBrush" Value="#3D7F5F"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        </Style>
+        
+        <!-- Style cho DataGrid Cell -->
+        <Style x:Key="DataGridCellStyle" TargetType="DataGridCell">
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="8,0"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="#E8F5E9"/>
+                    <Setter Property="Foreground" Value="#2D5F3F"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        
+        <!-- Style cho DataGrid Row -->
+        <Style x:Key="DataGridRowStyle" TargetType="DataGridRow">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderThickness" Value="0,0,0,1"/>
+            <Setter Property="BorderBrush" Value="#E0E0E0"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#F1F8F4"/>
+                </Trigger>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="#E8F5E9"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </Window.Resources>
 
-    <Grid Margin="20">
+    <Grid Margin="25">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="LỊCH SỬ ĐƠN HÀNG" FontSize="24" FontWeight="Bold" Foreground="#2D5F3F" Margin="0,0,0,20"/>
+        <!-- Header Section -->
+        <Border Background="White" CornerRadius="8" Padding="20,15" Margin="0,0,0,20">
+            <Border.Effect>
+                <DropShadowEffect Color="#000000" Opacity="0.1" BlurRadius="10" ShadowDepth="2" Direction="270"/>
+            </Border.Effect>
+            <Grid>
+                <TextBlock Text="LỊCH SỬ ĐƠN HÀNG" 
+                           FontSize="26" 
+                           FontWeight="Bold" 
+                           Foreground="#2D5F3F"
+                           VerticalAlignment="Center"/>
+            </Grid>
+        </Border>
 
-        <DataGrid Grid.Row="1" ItemsSource="{Binding LichSuDonHang}" 
-                  AutoGenerateColumns="False" IsReadOnly="True" 
-                  Background="White" BorderBrush="#D0E8DC" 
-                  RowHeight="80" CanUserAddRows="False">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Mã ĐH" Binding="{Binding DonHangID}" Width="60"/>
-                <DataGridTextColumn Header="Ngày lập" Binding="{Binding NgayLap, StringFormat={}{0:dd/MM/yyyy HH:mm}}" Width="120"/>
+        <!-- DataGrid Section -->
+        <Border Grid.Row="1" Background="White" CornerRadius="10">
+            <Border.Effect>
+                <DropShadowEffect Color="#000000" Opacity="0.1" BlurRadius="10" ShadowDepth="2" Direction="270"/>
+            </Border.Effect>
+            <DataGrid ItemsSource="{Binding LichSuDonHang}" 
+                      AutoGenerateColumns="False" 
+                      IsReadOnly="True" 
+                      Background="Transparent" 
+                      BorderThickness="0"
+                      RowHeight="90" 
+                      CanUserAddRows="False"
+                      CanUserResizeRows="False"
+                      GridLinesVisibility="None"
+                      HeadersVisibility="Column"
+                      SelectionMode="Single"
+                      SelectionUnit="FullRow"
+                      ColumnHeaderStyle="{StaticResource DataGridHeaderStyle}"
+                      CellStyle="{StaticResource DataGridCellStyle}"
+                      RowStyle="{StaticResource DataGridRowStyle}"
+                      Margin="1">
                 
-                <DataGridTemplateColumn Header="Hình ảnh" Width="100">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Image Source="{Binding HinhAnhDoUong, Converter={StaticResource ImagePathConverter}}" 
-                                   Width="60" Height="60" Stretch="UniformToFill" Margin="5"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
+                <DataGrid.Columns>
+                    <!-- Mã ĐH -->
+                    <DataGridTextColumn Header="Mã ĐH" Binding="{Binding DonHangID}" Width="70">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="FontWeight" Value="SemiBold"/>
+                                <Setter Property="Foreground" Value="#2D5F3F"/>
+                                <Setter Property="FontSize" Value="14"/>
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    
+                    <!-- Ngày lập -->
+                    <DataGridTextColumn Header="Ngày lập" Binding="{Binding NgayLap, StringFormat={}{0:dd/MM/yyyy HH:mm}}" Width="130">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="FontSize" Value="13"/>
+                                <Setter Property="Foreground" Value="#555555"/>
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    
+                    <!-- Hình ảnh -->
+                    <DataGridTemplateColumn Header="Hình ảnh" Width="90">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Border Width="70" Height="70" 
+                                        CornerRadius="8" 
+                                        BorderThickness="1" 
+                                        BorderBrush="#E0E0E0"
+                                        Background="#F9F9F9"
+                                        HorizontalAlignment="Center">
+                                    <Image Source="{Binding HinhAnhDoUong, Converter={StaticResource ImagePathConverter}}" 
+                                           Stretch="UniformToFill">
+                                        <Image.Clip>
+                                            <RectangleGeometry Rect="0,0,70,70" RadiusX="7" RadiusY="7"/>
+                                        </Image.Clip>
+                                    </Image>
+                                </Border>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
 
-                <DataGridTextColumn Header="Đồ uống" Binding="{Binding TenDoUong}" Width="150"/>
-                <DataGridTextColumn Header="Size" Binding="{Binding TenKichThuoc}" Width="60"/>
-                <DataGridTextColumn Header="Số lượng" Binding="{Binding SoLuong}" Width="80"/>
-                <DataGridTextColumn Header="Topping" Binding="{Binding DanhSachTopping}" Width="*">
-                    <DataGridTextColumn.ElementStyle>
-                        <Style TargetType="TextBlock">
-                            <Setter Property="TextWrapping" Value="Wrap"/>
-                            <Setter Property="VerticalAlignment" Value="Center"/>
-                        </Style>
-                    </DataGridTextColumn.ElementStyle>
-                </DataGridTextColumn>
-                <DataGridTextColumn Header="Tổng tiền ĐH" Binding="{Binding TongTienDonHang, StringFormat={}{0:N0} đ}" Width="100"/>
-                <DataGridTextColumn Header="Nhân viên" Binding="{Binding TenNhanVien}" Width="*"/>
-            </DataGrid.Columns>
-        </DataGrid>
+                    <!-- Đồ uống -->
+                    <DataGridTextColumn Header="Đồ uống" Binding="{Binding TenDoUong}" Width="180">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="FontSize" Value="14"/>
+                                <Setter Property="FontWeight" Value="Medium"/>
+                                <Setter Property="Foreground" Value="#333333"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="TextWrapping" Value="Wrap"/>
+                                <Setter Property="Margin" Value="8,0"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    
+                    <!-- Size -->
+                    <DataGridTextColumn Header="Size" Binding="{Binding TenKichThuoc}" Width="60">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="FontSize" Value="13"/>
+                                <Setter Property="FontWeight" Value="SemiBold"/>
+                                <Setter Property="Foreground" Value="#2D5F3F"/>
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    
+                    <!-- Số lượng -->
+                    <DataGridTextColumn Header="Số lượng" Binding="{Binding SoLuong}" Width="80">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="FontSize" Value="13"/>
+                                <Setter Property="Foreground" Value="#555555"/>
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    
+                    <!-- Topping -->
+                    <DataGridTextColumn Header="Topping" Binding="{Binding DanhSachTopping}" Width="*" MinWidth="150">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="TextWrapping" Value="Wrap"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="FontSize" Value="12"/>
+                                <Setter Property="Foreground" Value="#666666"/>
+                                <Setter Property="LineHeight" Value="18"/>
+                                <Setter Property="Margin" Value="8,8"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    
+                    <!-- Tổng tiền -->
+                    <DataGridTextColumn Header="Tổng tiền ĐH" Binding="{Binding TongTienDonHang, StringFormat={}{0:N0} đ}" Width="120">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="FontSize" Value="14"/>
+                                <Setter Property="FontWeight" Value="Bold"/>
+                                <Setter Property="Foreground" Value="#D84315"/>
+                                <Setter Property="HorizontalAlignment" Value="Right"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="Margin" Value="0,0,12,0"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    
+                    <!-- Nhân viên -->
+                    <DataGridTextColumn Header="Nhân viên" Binding="{Binding TenNhanVien}" Width="130">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="FontSize" Value="13"/>
+                                <Setter Property="Foreground" Value="#555555"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="TextWrapping" Value="Wrap"/>
+                                <Setter Property="Margin" Value="8,0"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
     </Grid>
 </Window>
