@@ -15,7 +15,6 @@ namespace BanCaPhe.Services
     {
         public void ThanhToan(DonHang donHang, List<OrderItem> items)
         {
-         
             DataTable tbChiTiet = new DataTable();
             tbChiTiet.Columns.Add("SanPhamKichThuocID", typeof(int));
             tbChiTiet.Columns.Add("SoLuong", typeof(int));
@@ -57,6 +56,8 @@ namespace BanCaPhe.Services
             parameters.Add("@HinhThucThanhToan", donHang.HinhThucThanhToan);
             parameters.Add("@KhachHangID", donHang.KhachHangID);
             parameters.Add("@DungVoucher", donHang.DungVoucher);
+            parameters.Add("@MaGiaoDich", donHang.MaGiaoDich);
+            parameters.Add("@TrangThaiThanhToan", donHang.TrangThaiThanhToan);
                 
        
             parameters.Add("@ChiTietDonHang", tbChiTiet.AsTableValuedParameter("dbo.TVP_ChiTietDonHang"));
@@ -64,6 +65,25 @@ namespace BanCaPhe.Services
 
    
             StoreHelper.Execute("sp_ThanhToan", parameters);
+        }
+
+        public List<LichSuDonHangModel> GetLichSuDonHang()
+        {
+            return StoreHelper.QueryList<LichSuDonHangModel>("sp_LayLichSuDonHang");
+        }
+
+        public void UpdateTrangThaiThanhToan(string maGiaoDich, string trangThai)
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("@MaGiaoDich", maGiaoDich);
+            parameters.Add("@TrangThai", trangThai);
+
+            // Giả định có SP sp_UpdateTrangThaiDonHang hoặc dùng SQL trực tiếp qua StoreHelper
+            string sql = "UPDATE DonHang SET TrangThaiThanhToan = @TrangThai WHERE MaGiaoDich = @MaGiaoDich";
+            using (IDbConnection conn = DoUongDbConnection.GetConnection())
+            {
+                conn.Execute(sql, parameters);
+            }
         }
     }
 }

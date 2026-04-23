@@ -1,4 +1,5 @@
 using BanCaPhe.Models;
+using BanCaPhe.Services;
 using BanCaPhe.Views;
 using System;
 using System.Collections.Generic;
@@ -32,10 +33,10 @@ namespace BanCaPhe.ViewModel
             DongCommand = new RelayCommand(_ => Dong());
         }
 
-        //  TIỀN MẶT 
+     
         private void ThanhToanTienMat()
         {
-            // mở view thanh toán tiền mặt
+      
             var vm = new ThanhToanTienMatViewModel(TongTien);
 
             var view = new ThanhToanTienMatView
@@ -47,22 +48,104 @@ namespace BanCaPhe.ViewModel
             };
 
             view.ShowDialog();
-
-            // đóng popup chọn phương thức
             Dong();
         }
 
-        //  CHUYỂN KHOẢN 
+   
         private void ThanhToanChuyenKhoan()
         {
             DialogService.ShowMessage("Thanh toán chuyển khoản (sẽ làm sau)");
         }
 
-        // VNPAY
-        private void ThanhToanVnpay()
+
+        private async void ThanhToanVnpay()
         {
-            DialogService.ShowMessage("Thanh toán VNPay QR (sẽ tích hợp sau)");
+            var payOSService = new BanCaPhe.Services.PayOSService();
+            var donHangService = new BanCaPhe.Services.DonHangService();
+
+            try
+            {
+           
+                string maGiaoDich = "PAYOS" + DateTime.Now.Ticks.ToString().Substring(10);
+
+              
+                var currentUser = UserSession.CurrentUser;
+                var donHang = new DonHang
+                {
+                    NgayLap = DateTime.Now,
+                    NhanVienID = currentUser?.ID ?? 0,
+                    TongTien = TongTien,
+                    HinhThucThanhToan = "Chuyen khoan",
+                    KhachHangID = CartService.Instance.CurrentKhachHang?.ID,
+                    MaGiaoDich = maGiaoDich,
+                    TrangThaiThanhToan = "Chưa thanh toán"
+                };
+
+                var items = Items.ToList();
+                donHangService.ThanhToan(donHang, items);
+
+     
+                var result = await payOSService.CreatePaymentLink((long)TongTien);
+
+                if (result != null && !string.IsNullOrEmpty(result.QrCode))
+                {
+                    // 4. Mở Form hiển thị mã QR (MVVM)
+                    var qrVM = new ThanhToanQRViewModel(result.QrCode, TongTien, result.OrderCode);
+                    var qrWindow = new W_ThanhToanQR
+                    {
+                        DataContext = qrVM,
+                        Owner = Application.Current.Windows
+                            .OfType<Window>()
+                            .FirstOrDefault(w => w.IsActive)
+                    };
+                    
+                    bool isPaid = false;
+                    qrVM.PaymentSuccess += (s, e) => {
+                        isPaid = true;
+                        qrWindow.Close(); // Tự động đóng form QR khi đã nhận được tiền
+                    };
+
+                    qrWindow.ShowDialog();
+                    qrVM.StopPolling(); // Dừng polling nếu đóng bằng tay
+
+                    if (isPaid)
+                    {
+                        // Cập nhật trạng thái thành công trong Database
+                        donHangService.UpdateTrangThaiThanhToan(maGiaoDich, "Thanh toán thành công");
+
+                        // 5. Hiện form thành công
+                        var successVM = new ThanhToanThanhCongViewModel(maGiaoDich, TongTien, () => {
+                            // Sẽ gán sau khi tạo window
+                        });
+
+                        var successWindow = new W_ThanhToanThanhCong
+                        {
+                            Owner = Application.Current.Windows.OfType<Window>().FirstOrDefault(w => w.IsActive)
+                        };
+
+                        successVM = new ThanhToanThanhCongViewModel(maGiaoDich, TongTien, () => {
+                            successWindow.Close();
+                        });
+                        successWindow.DataContext = successVM;
+
+                        successWindow.ShowDialog();
+
+                        CartService.Instance.Clear();
+                        CartService.Instance.NotifyTongTienChanged();
+                        Dong();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Không thể lấy được thông tin thanh toán từ API.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi lưu đơn/tạo QR: " + ex.Message);
+            }
         }
+
 
         private void Dong()
         {

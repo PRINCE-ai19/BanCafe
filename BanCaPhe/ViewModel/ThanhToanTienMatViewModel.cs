@@ -183,7 +183,7 @@ namespace BanCaPhe.ViewModel
             TongTien = TongTienGoc - GiamGia;
         }
 
-        // Nhập số từ bàn phím
+       
         private void NhapSo(object param)
         {
             string so = param?.ToString() ?? "";
@@ -194,8 +194,6 @@ namespace BanCaPhe.ViewModel
             TienKhachDuaText = _tienKhachDuaText + so;
         }
 
-
-        // Xóa từng số (Backspace)
         private void Xoa()
         {
             if (_tienKhachDuaText.Length > 0)
@@ -206,21 +204,16 @@ namespace BanCaPhe.ViewModel
             }
         }
 
-
-
-        // Xóa hết (Clear)
         private void XoaHet()
         {
             TienKhachDuaText = "0";
         }
 
-        // Điền đúng số tiền cần thanh toán
         private void VuaDu()
         {
             TienKhachDuaText = TongTien.ToString("0");
         }
 
-        // Chọn mệnh giá tiền (cộng dồn)
         private void ChonMenhGia(object param)
         {
             if (decimal.TryParse(param?.ToString(), out decimal menhGia))
@@ -246,7 +239,7 @@ namespace BanCaPhe.ViewModel
 
             try
             {
-                // 1️⃣ LẤY THÔNG TIN NHÂN VIÊN ĐANG ĐĂNG NHẬP
+   
                 var currentUser = UserSession.CurrentUser;
 
                 if (currentUser == null)
@@ -255,17 +248,17 @@ namespace BanCaPhe.ViewModel
                     return;
                 }
 
-                // 2️⃣ Tạo đơn hàng
+        
                 var donHang = new DonHang
                 {
                     NgayLap = DateTime.Now,
-                    NhanVienID = currentUser.ID, // ✅ Lấy từ UserSession
+                    NhanVienID = currentUser.ID, 
                     TongTien = TongTien,
                     HinhThucThanhToan = "Tien mat",
-                    KhachHangID = KhachHang?.ID
+                    KhachHangID = KhachHang?.ID,
+                    TrangThaiThanhToan = "Thanh toán thành công"
                 };
 
-                // 3️⃣ LẤY GIỎ HÀNG
                 var items = CartService.Instance.Items.ToList();
 
                 if (!items.Any())

@@ -1,11 +1,16 @@
-﻿<Window x:Class="BanCaPhe.Views.HoaDonTamWindow"
+<Window x:Class="BanCaPhe.Views.HoaDonTamWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:converters="clr-namespace:BanCaPhe.Converters"
         Title="Hóa đơn tạm"
         Width="700"
-        Height="600"
+        Height="800"
         WindowStartupLocation="CenterOwner"
         Background="#FAFAF8">
+
+    <Window.Resources>
+        <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
+    </Window.Resources>
 
     <StackPanel>
         <!-- HEADER -->
@@ -100,7 +105,7 @@
 
                                         <!-- Unit Price -->
                                         <TextBlock Grid.Column="2" 
-                                                   Text="{Binding Gia, StringFormat={}{0:N0} đ}" 
+                                                   Text="{Binding DonGia, StringFormat={}{0:N0} đ}" 
                                                    Foreground="#2D7A5C"
                                                    FontWeight="Bold"
                                                    TextAlignment="Right"
@@ -152,6 +157,28 @@
                                TextAlignment="Right"
                                VerticalAlignment="Center"/>
                 </Grid>
+
+                <!-- QR CODE SECTION -->
+                <StackPanel HorizontalAlignment="Center" Margin="0,0,0,16">
+                    <TextBlock Text="QUÉT MÃ THANH TOÁN" 
+                               FontSize="11" 
+                               FontWeight="Bold" 
+                               Foreground="#4A7C6B" 
+                               HorizontalAlignment="Center"
+                               Margin="0,0,0,8"/>
+                    
+                    <Grid Width="150" Height="150">
+                        <!-- Placeholder/Loading -->
+                        <TextBlock Text="Đang tải mã QR..." 
+                                   VerticalAlignment="Center" 
+                                   HorizontalAlignment="Center"
+                                   Foreground="#999"
+                                   Visibility="{Binding QrCodeImage, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter=Inverse}"/>
+                        
+                        <Image Source="{Binding QrCodeImage}" 
+                               Stretch="Uniform"/>
+                    </Grid>
+                </StackPanel>
 
                 <!-- BUTTON -->
                 <Button Content="Xuất PDF hóa đơn tạm"

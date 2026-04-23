@@ -1,5 +1,7 @@
+using PayOS;
+using PayOS_Integration.Services;
 
-namespace PaYos
+namespace CoffeePay
 {
     public class Program
     {
@@ -13,6 +15,9 @@ namespace PaYos
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddScoped<IWalletService, WalletServices>();
+
 
             var app = builder.Build();
 

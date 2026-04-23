@@ -1,0 +1,48 @@
+<Window x:Class="BanCaPhe.Views.W_ThanhToanThanhCong"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Thanh toán thành công" Height="400" Width="400"
+        WindowStartupLocation="CenterScreen" WindowStyle="None"
+        AllowsTransparency="True" Background="Transparent">
+    
+    <Border Background="White" CornerRadius="20" BorderBrush="#2D7A5C" BorderThickness="1" Margin="10">
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="15" ShadowDepth="0" Opacity="0.3"/>
+        </Border.Effect>
+        
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+            <!-- Icon Success -->
+            <Border Width="80" Height="80" Background="#E8F5E9" CornerRadius="40" Margin="0,0,0,20">
+                <TextBlock Text="✓" Foreground="#2D7A5C" FontSize="50" FontWeight="Bold" 
+                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+
+            <TextBlock Text="THANH TOÁN THÀNH CÔNG!" FontSize="20" FontWeight="Bold" 
+                       Foreground="#2D7A5C" TextAlignment="Center" Margin="0,0,0,10"/>
+
+            <TextBlock Text="Cảm ơn bạn đã sử dụng dịch vụ!" FontSize="14" 
+                       Foreground="#6B8B7E" TextAlignment="Center" Margin="0,0,0,30"/>
+
+            <Border Background="#F1F8F5" Padding="20,15" CornerRadius="12" Width="300">
+                <StackPanel>
+                    <Grid Margin="0,0,0,8">
+                        <TextBlock Text="Mã giao dịch:" Foreground="#6B8B7E" FontSize="13"/>
+                        <TextBlock Text="{Binding MaGiaoDich}" Foreground="#1F4D3D" FontWeight="Bold" 
+                                   HorizontalAlignment="Right" FontSize="13"/>
+                    </Grid>
+                    <Grid>
+                        <TextBlock Text="Tổng tiền:" Foreground="#6B8B7E" FontSize="13"/>
+                        <TextBlock Text="{Binding TongTien, StringFormat={}{0:N0} đ}" Foreground="#2D7A5C" 
+                                   FontWeight="Bold" HorizontalAlignment="Right" FontSize="16"/>
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,30,0,0">
+                <TextBlock Text="Tự động đóng sau " Foreground="#6B8B7E" FontSize="12"/>
+                <TextBlock Text="{Binding Countdown}" Foreground="#C62828" FontWeight="Bold" FontSize="12"/>
+                <TextBlock Text=" giây..." Foreground="#6B8B7E" FontSize="12"/>
+            </StackPanel>
+        </StackPanel>
+    </Border>
+</Window>

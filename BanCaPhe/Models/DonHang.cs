@@ -14,5 +14,7 @@ namespace BanCaPhe.Models
         public string HinhThucThanhToan { get; set; }
         public int? KhachHangID { get; set; }
         public bool DungVoucher { get; set; }
+        public string MaGiaoDich { get; set; }
+        public string TrangThaiThanhToan { get; set; }
     }
 }

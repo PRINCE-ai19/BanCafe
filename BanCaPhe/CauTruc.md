@@ -60,3 +60,45 @@ Dự án mình có thêm tầng này để ViewModel không bị quá nặng.
 
 > [!TIP]
 > **Lời khuyên từ Senior**: Đừng bao giờ viết code xử lý database trực tiếp trong file `.xaml.cs` (Code-behind). Hãy đưa nó vào **Service**, gọi qua **ViewModel**, và bind lên **View**. Đó là cách giữ cho code của em sạch sẽ, dễ test và dễ mở rộng.
+
+
+1. Thống kê Doanh thu theo Ngày (SP_GetChiTietDoanhThuTheoNgay)
+Thống kê này giúp bạn xem biến động doanh thu từng ngày trong một tháng cụ thể.
+
+Tham số: Tháng, Năm (mặc định là tháng/năm hiện tại).
+Các chỉ số tính toán:
+Số Đơn Hàng: Đếm tổng số ID đơn hàng duy nhất trong ngày.
+Doanh Thu Sản Phẩm: $\sum(\text{Số lượng} \times \text{Giá món})$ của các món trong ChiTietDonHang.
+Doanh Thu Topping: $\sum(\text{Số lượng} \times \text{Giá Topping})$ từ bảng ChiTietTopping.
+Tổng Doanh Thu: $\text{Doanh Thu Sản Phẩm} + \text{Doanh Thu Topping}$.
+
+2. Thống kê Tổng quan Tháng này (SP_GetDoanhThuThangNay)
+Lấy nhanh con số tổng của toàn bộ tháng hiện tại.
+
+Các chỉ số tính toán:
+Tổng Doanh Thu: Tính tổng tiền của tất cả ChiTietDonHang và ChiTietTopping phát sinh trong tháng.
+Tổng Đơn Hàng: Tổng số đơn hàng đã thực hiện trong tháng.
+
+3. Thống kê Sản phẩm Bán chạy nhất (SP_GetSanPhamBanChayNhat)
+Xác định những món "hot" nhất của cửa hàng trong tháng.
+
+Tham số: TopN (Số lượng sản phẩm muốn lấy, mặc định là 10).
+Công thức & Sắp xếp:
+Lấy danh sách sản phẩm có Tổng số lượng bán (SUM(SoLuong)) cao nhất.
+Tính thêm Giá trung bình của sản phẩm đó trong tháng.
+
+
+4. Thống kê Topping phổ biến nhất (SP_GetToppingPhoBienNhat)
+Giúp bạn biết khách hàng thích thêm loại topping nào nhất.
+
+Tham số: TopN (Mặc định lấy 5 loại).
+Công thức & Sắp xếp:
+Dựa vào Tổng số lượng Topping đã bán (SUM(ctt.SoLuong)).
+Tính tổng doanh thu riêng cho từng loại topping.
+
+
+5. Thống kê theo Khoảng thời gian (SP_GetDoanhThuTheoKhoangThoiGian)
+Linh hoạt hơn khi bạn muốn xem báo cáo từ ngày A đến ngày B.
+
+Tham số: TuNgay, DenNgay.
+Chỉ số: Tính tương tự như mục 1 nhưng áp dụng cho khoảng thời gian tùy chọn.

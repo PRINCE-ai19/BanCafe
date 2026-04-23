@@ -1,4 +1,4 @@
-﻿using BanCaPhe.Models;
+using BanCaPhe.Models;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
@@ -15,11 +15,13 @@ namespace BanCaPhe.Pdf
     {
         private readonly IEnumerable<OrderItem> _items;
         private readonly decimal _tongTien;
+        private readonly string _qrCodePayload;
 
-        public HoaDonTamPdf(IEnumerable<OrderItem> items, decimal tongTien)
+        public HoaDonTamPdf(IEnumerable<OrderItem> items, decimal tongTien, string qrCodePayload = null)
         {
             _items = items;
             _tongTien = tongTien;
+            _qrCodePayload = qrCodePayload;
         }
 
         public DocumentMetadata GetMetadata() => DocumentMetadata.Default;
@@ -102,6 +104,20 @@ namespace BanCaPhe.Pdf
                            .FontSize(13)
                            .FontColor(QuestPDF.Helpers.Colors.Red.Darken1);
                     });
+
+                    // QR CODE
+                    if (!string.IsNullOrEmpty(_qrCodePayload))
+                    {
+                        var qrBytes = BanCaPhe.Helpers.QrHelper.GenerateQrCodeBytes(_qrCodePayload);
+                        if (qrBytes != null)
+                        {
+                            col.Item().PaddingTop(20).Column(qrCol =>
+                            {
+                                qrCol.Item().AlignCenter().Text("MÃ QUÉT THANH TOÁN").FontSize(10).Bold();
+                                qrCol.Item().AlignCenter().Width(120).Height(120).Image(qrBytes);
+                            });
+                        }
+                    }
                 });
             });
         }

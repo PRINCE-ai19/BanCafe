@@ -108,6 +108,17 @@
                                 </StackPanel>
                             </Border>
 
+                            <!-- Order History Button -->
+                            <Border Background="#FFFFFF" Padding="12" CornerRadius="8" Cursor="Hand" Margin="0,0,0,12" BorderBrush="#D0E8DC" BorderThickness="1">
+                                <Border.InputBindings>
+                                    <MouseBinding MouseAction="LeftClick" Command="{Binding HienThiLichSuCommand}"/>
+                                </Border.InputBindings>
+                                <StackPanel>
+                                    <TextBlock Text="📋 Lịch sử" FontSize="13" FontWeight="Bold" Foreground="#1F4D3D"/>
+                                    <TextBlock Text="Đơn hàng đã bán" FontSize="11" Foreground="#4A7C6B" Margin="0,4,0,0"/>
+                                </StackPanel>
+                            </Border>
+
                             <!-- Logout Button -->
                             <Border Margin="0,0,0,0" Padding="12" CornerRadius="8" Background="#FFCDD2" Cursor="Hand" BorderBrush="#EF9A9A" BorderThickness="1">
                                 <Border.InputBindings>

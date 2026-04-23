@@ -109,6 +109,7 @@ namespace BanCaPhe.ViewModel
         public ICommand TimKhachHangCommand { get; }
         public ICommand HuyKhachHangCommand { get; }
         public ICommand MoVoucherModalCommand { get; }
+        public ICommand HienThiLichSuCommand { get; }
 
         public MainViewModel()
         {
@@ -146,6 +147,7 @@ namespace BanCaPhe.ViewModel
             TimKhachHangCommand = new RelayCommand(_ => TimKhachHang());
             HuyKhachHangCommand = new RelayCommand(_ => HuyKhachHang());
             MoVoucherModalCommand = new RelayCommand(_ => MoVoucherModal());
+            HienThiLichSuCommand = new RelayCommand(_ => HienThiLichSu());
         }
 
         private void NotifyPriceChanged()
@@ -251,6 +253,13 @@ namespace BanCaPhe.ViewModel
         private void HienThiDangKyThanhVien()
         {
             var view = new W_DangKyThanhVien();
+            view.Owner = Application.Current.MainWindow;
+            view.ShowDialog();
+        }
+
+        private void HienThiLichSu()
+        {
+            var view = new W_LichSuDonHang();
             view.Owner = Application.Current.MainWindow;
             view.ShowDialog();
         }
